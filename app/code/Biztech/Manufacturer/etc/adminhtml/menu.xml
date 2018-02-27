@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Biztech. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Backend/etc/menu.xsd">
+    <menu>
+
+        <add id="Biztech_Manufacturer::biztech_manufacturer_index" title="Manufacturer" module="Biztech_Manufacturer" sortOrder="20" dependsOnModule="Biztech_Manufacturer" action="manufacturer/manufacturer/index" resource="Biztech_Manufacturer::biztech_manufacturer_index"/>
+        <!--AddMenu-->
+    </menu>
+</config>

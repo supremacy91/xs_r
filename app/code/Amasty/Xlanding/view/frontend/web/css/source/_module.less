@@ -1,0 +1,52 @@
+
+//
+//    Common
+//--------------------------------------
+
+& when (@media-common = true) {
+    .amasty-xlanding-page-view .products-grid .product-item { width: 100%/3 }
+
+    .product {
+        &-item {
+            &-info {
+                .amasty-xlanding-page-view & {
+                    width: 240px;
+                }
+            }
+        }
+    }
+}
+
+//
+//
+//    Mobile
+//--------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__s) {
+//    .amasty-xlanding-page-view .products-grid .product-item { width: 100%/3 }
+}
+//
+//
+//    Desktop
+//--------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .amasty-xlanding-columns3.amasty-xlanding-page-view .products-grid .product-item
+    {
+        width: 100%/3
+    }
+    .amasty-xlanding-columns4.amasty-xlanding-page-view .products-grid .product-item
+    {
+        width: 100%/4
+    }
+    .amasty-xlanding-columns5.amasty-xlanding-page-view .products-grid .product-item
+    {
+        width: 100%/5
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .amasty-xlanding-page-view .products-grid .product-items { margin: 0; }
+    .amasty-xlanding-page-view .products-grid .product-item {
+    }
+}

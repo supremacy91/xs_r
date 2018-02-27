@@ -1,0 +1,82 @@
+<?php
+$helper = $this->helper("Lof\Formbuilder\Helper\Fields");
+$form_data = $this->getData('form_data');
+$field = $this->getData('field_data');
+$field_type = $field['field_type'];
+$label = $field['label'];
+$options = $field['field_options'];
+$required = $field['required'];
+$cid = $field['cid'];
+$field_name = $helper->getFieldPrefix() . $cid;
+$available_fields = $helper->getAvailableFields();
+$html = '';
+$field_validate = isset($available_fields[$field_type]) ? $available_fields[$field_type] : '';
+$validates = $field_validate;
+$field_help = isset($options['description']) ? $options['description'] : '';
+if ($field_validate && is_array($field_validate)) {
+    $validates = implode(" ", $field_validate);
+}
+$width = isset($field['width']) ? $field['width'] : '550px';
+$height = isset($field['height']) ? $field['height'] : '400px';
+$radius = isset($field['radius']) ? (float)$field['radius'] : 300;
+$default_lat = isset($field['default_lat']) ? (float)$field['default_lat'] : 21.0199438;
+$default_long = isset($field['default_long']) ? (float)$field['default_long'] : 105.81731119999995;
+$address = isset($field['address']) ? $field['address'] : "";
+?>
+<div class="subtemplate-wrapper">
+    <label for="<?php echo $field_name; ?>"
+           class="<?php echo (1 == $required) ? 'required' : ''; ?>"><?php echo $label; ?><?php echo (1 == $required) ? '<em>*</em>' : ''; ?></label>
+    <div class="input-box form-horizontal">
+
+        <div class="form-group">
+            <label class="col-sm-1 control-label"><?php echo __("Location:"); ?></label>
+
+            <div class="col-sm-5"><input type="text" class="form-control" name="<?php echo $field_name; ?>"
+                                         id="<?php echo $field_name . "-address"; ?>"
+                                         value="<?php echo ($form_data && isset($form_data[$field_name])) ? $form_data[$field_name] : $address; ?>"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-1 control-label"><?php echo __("Radius:"); ?></label>
+
+            <div class="col-sm-5"><input type="text" class="form-control" name="<?php echo $field_name . "_radius"; ?>"
+                                         id="<?php echo $field_name . "-radius"; ?>"
+                                         value="<?php echo ($form_data && isset($form_data[$field_name . "_radius"])) ? $form_data[$field_name . "_radius"] : $radius; ?>"/>
+            </div>
+        </div>
+        <div id="<?php echo $field_name; ?>"
+             style="width: <?php echo $width; ?>; height: <?php echo $height; ?>;"></div>
+        <div class="clearfix">&nbsp;</div>
+        <div class="m-t-small">
+            <input name="<?php echo $field_name . "_lat"; ?>" id="<?php echo $field_name . "-lat"; ?>"
+                   value="<?php echo ($form_data && isset($form_data[$field_name . "_lat"])) ? $form_data[$field_name . "_lat"] : $default_lat; ?>"
+                   class="input-text" type="hidden"/>
+            <input name="<?php echo $field_name . "_long"; ?>" id="<?php echo $field_name . "-long"; ?>"
+                   value="<?php echo ($form_data && isset($form_data[$field_name . "_long"])) ? $form_data[$field_name . "_long"] : $default_long; ?>"
+                   class="input-text" type="hidden"/>
+        </div>
+        <div class="clearfix"></div>
+        <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false&libraries=places"></script>
+        <script type="text/javascript">
+            require([
+                'jquery',
+                'Lof_Formbuilder/js/locationpicker/locationpicker'
+            ], function () {
+                jQuery('#<?php echo $field_name; ?>').locationpicker({
+                    location: {latitude: <?php echo $default_lat; ?>, longitude: <?php echo $default_long; ?>},
+                    radius: <?php echo $radius; ?>,
+                    inputBinding: {
+                        latitudeInput: jQuery('#<?php echo $field_name; ?>-lat'),
+                        longitudeInput: jQuery('#<?php echo $field_name; ?>-long'),
+                        radiusInput: jQuery('#<?php echo $field_name; ?>-radius'),
+                        locationNameInput: jQuery('#<?php echo $field_name; ?>-address')
+                    },
+                    enableAutocomplete: true
+                });
+            });
+        </script>
+        <?php if ($field_help) { ?>
+            <span class="help-block"><?php echo $field_help; ?></span>
+        <?php } ?>
+    </div>
+</div>

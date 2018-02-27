@@ -1,0 +1,53 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php /* @var $block \Magento\Catalog\Block\Product\View\AbstractView */?>
+<?php $_product = $block->getProduct() ?>
+
+<?php if ($block->displayProductStockStatus()): ?>
+    <?php if ($_product->isAvailable()): ?>
+	
+		<?php 
+			$qty = 0;
+			$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+			$productStockObj = $objectManager->get('Magento\CatalogInventory\Api\StockRegistryInterface')->getStockItem($_product->getId());
+			if($productStockObj['type_id'] == 'simple'){
+				$qty = round($productStockObj['qty']);
+			}else if($productStockObj['type_id'] == 'configurable'){
+				$childObj = $_product->getTypeInstance()->getUsedProducts($_product);;
+				if(count($childObj) > 0){
+					foreach ($childObj as $child){   
+						if($child['type_id'] == 'simple'){
+							$cQtyObj = $objectManager->get('Magento\CatalogInventory\Api\StockRegistryInterface')->getStockItem($child->getId());
+							$cQty = round($cQtyObj['qty']);
+							$qty = $qty + $cQty;
+						}
+					}
+				}
+			}
+			if($qty > 2){
+				?>
+					<div class="stock available" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
+						<span><?php /* @escapeNotVerified */ echo __('In stock') ?></span>
+					</div>
+				<?php
+			}else{
+				?>
+				<div class="stock available" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
+					<span><?php /* @escapeNotVerified */ echo __('Only one left in stock') ?></span>
+				</div>
+				<?php
+			}
+		?>
+    <?php else: ?>
+        <div class="stock unavailable" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
+            <span><?php /* @escapeNotVerified */ echo __('Out of stock') ?></span>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>

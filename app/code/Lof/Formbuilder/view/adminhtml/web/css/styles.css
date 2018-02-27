@@ -1,0 +1,3 @@
+.admin__menu .item-form > a:before {
+    content: "\e617" !important;
+}

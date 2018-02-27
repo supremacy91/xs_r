@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_Formbuilder
+ * @copyright  Copyright (c) 2016 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="lofformbuilder_form" class="Lof\Formbuilder\Block\Widget\Form">
+        <label translate="true">Lof Formbuilder: Form</label>
+        <description translate="true">Select a Form</description>
+        <parameters>
+            <parameter name="title" xsi:type="text" visible="true">
+                <label translate="true">Title</label>
+            </parameter>
+            <parameter name="prefix_class" xsi:type="text" visible="true">
+                <label translate="true">Prefix Class</label>
+            </parameter>
+            <parameter name="formid" xsi:type="select" visible="true"
+                       source_model="Lof\Formbuilder\Model\Config\Source\Form">
+                <label translate="true">Form</label>
+            </parameter>
+            <parameter name="display_type" xsi:type="select" visible="true"
+                       source_model="Lof\Formbuilder\Model\Config\Source\DisplayType">
+                <label translate="true">Display Type</label>
+            </parameter>
+            <parameter name="button_text" xsi:type="text" visible="true">
+                <label translate="true">Button Text</label>
+                <depends>
+                    <parameter name="display_type" value="link"/>
+                </depends>
+                <value>Click me</value>
+            </parameter>
+            <parameter name="popup_width" xsi:type="text" visible="true">
+                <label translate="true">Popup Width</label>
+                <depends>
+                    <parameter name="display_type" value="popup"/>
+                </depends>
+                <value>600</value>
+            </parameter>
+            <parameter name="popup_height" xsi:type="text" visible="true">
+                <label translate="true">Popup Height</label>
+                <depends>
+                    <parameter name="display_type" value="popup"/>
+                </depends>
+            </parameter>
+            <parameter name="show_after" xsi:type="text" visible="true">
+                <label translate="true">Show after X seconds page is loaded</label>
+                <depends>
+                    <parameter name="display_type" value="popup"/>
+                </depends>
+            </parameter>
+            <parameter name="show_cookietime" xsi:type="text" visible="true">
+                <label translate="true">Show By Cookie</label>
+                <description><![CDATA[Show popup after X minutes. Put 0 to show whenever page is loaded]]></description>
+                <depends>
+                    <parameter name="display_type" value="popup"/>
+                </depends>
+            </parameter>
+            <parameter name="show_text_before" xsi:type="select" visible="true"
+                       source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show Text Before Form</label>
+            </parameter>
+            <parameter name="show_text_after" xsi:type="select" visible="true"
+                       source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show Text After Form</label>
+            </parameter>
+            <parameter name="block_template" xsi:type="text" visible="true">
+                <label translate="true">Template</label>
+                <description>
+                    <![CDATA[Input custom module template file path. For example: Lof_Formbuilder::widget/form.phtml. Empty for default]]></description>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

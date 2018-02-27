@@ -1,0 +1,41 @@
+<?php
+$helper = $this->helper("Lof\Formbuilder\Helper\Fields");
+$form_data = $this->getData('form_data');
+$field = $this->getData('field_data');
+$field_type = $field['field_type'];
+$label = $field['label'];
+$options = $field['field_options'];
+$required = $field['required'];
+$cid = $field['cid'];
+$field_name = $helper->getFieldPrefix() . $cid;
+$available_fields = $helper->getAvailableFields();
+$field_validate = isset($available_fields[$field_type]) ? $available_fields[$field_type] : '';
+$validates = $field_validate;
+$field_help = isset($options['description']) ? $options['description'] : '';
+if ($field_validate && is_array($field_validate)) {
+    $validates = implode(" ", $field_validate);
+}
+$size = isset($options['size']) ? "rf-size-" . $options['size'] : '';
+$style = '';
+if ($field['fieldheight']) {
+    $style = 'height:' . $field['fieldheight'] . ';';
+}
+if ($style != '') {
+    $style = 'style="' . $style . '"';
+}
+?>
+<div class="subtemplate-wrapper">
+    <label for="<?php echo $field_name; ?>"
+           class="<?php echo (1 == $required) ? 'required' : ''; ?>"><?php echo $label; ?><?php echo (1 == $required) ? '<em>*</em>' : ''; ?></label>
+    <div class="row">
+        <div class="input-box <?php echo isset($field['fieldcol']) ? 'col-sm-' . $field['fieldcol'] : 'col-sm-12'; ?>">
+            <textarea <?php echo $style ?> name="<?php echo $field_name; ?>" id="<?php echo $field_name; ?>"
+                                           title="<?php echo $label; ?>"
+                                           class="input-text <?php echo (1 == $required) ? 'required-entry' : ''; ?> <?php echo $validates; ?> <?php echo $size ?>" <?php echo(isset($options['minlength']) ? 'data-minlength="' . $options['minlength'] . '"' : '') ?> <?php echo(isset($options['maxlength']) ? 'data-maxlength="' . $options['maxlength'] . '"' : '') ?> <?php echo isset($options['min_max_length_units']) ? ' data-units="' . $options["min_max_length_units"] . '"' : '' ?>><?php echo ($form_data && isset($form_data[$field_name])) ? $form_data[$field_name] : ''; ?></textarea>
+            <?php
+            if ($field_help) { ?>
+                <span class="help-block"><?php echo $field_help; ?></span>
+            <?php } ?>
+        </div>
+    </div>
+</div>

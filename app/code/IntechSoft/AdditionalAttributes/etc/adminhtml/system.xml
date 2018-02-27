@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="intechsoft_tab" translate="label" sortOrder="500">
+            <label>IntechSoft Extensions</label>
+        </tab>
+        <section id="intechsoft" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Additional Attributes Extension</label>
+            <tab>intechsoft_tab</tab>
+            <resource>IntechSoft_AdditionalAttributes::additionalattributes</resource>
+            <group id="basic" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>AdditionalAttributes</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Full Reindex</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="salecategoryid" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Category Id For Sale</label>
+                    <source_model>IntechSoft\AdditionalAttributes\Model\Config\Source\Categorylist</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

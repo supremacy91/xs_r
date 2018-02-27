@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Store/etc/config.xsd">
+    <default>
+        <manufacturer>
+            <activation>
+                <is_active>0</is_active>
+            </activation>
+            <general>
+                <enabled>1</enabled>
+                <image_upload_width_height>300x300</image_upload_width_height>
+                <brandlist_attribute>manufacturer</brandlist_attribute>
+            </general>
+            <left_configuration>
+                <layered_navigation_enabled>1</layered_navigation_enabled>
+                <layered_navigation_dimension>30x30</layered_navigation_dimension>
+                <featured_block>
+                    <slider_image_dimension>30x30</slider_image_dimension>
+                    <slider_margin_column>10</slider_margin_column>
+                    <slider_maxslides_column>2</slider_maxslides_column>
+                </featured_block>
+            </left_configuration>
+            <manufacturer_brand_list>
+                <manufacturer_list_enabled>1</manufacturer_list_enabled>
+                <manufacturer_list_dimension>300x300</manufacturer_list_dimension>
+            </manufacturer_brand_list>
+            <manufacturer_product_view>
+                <product_view_enabled>1</product_view_enabled>
+                <product_view_dimension>30x30</product_view_dimension>
+            </manufacturer_product_view>
+            <manufacturer_slider>
+                <slider_maxslides>6</slider_maxslides>
+                <slider_margin>10</slider_margin>
+                <slider_image_dimension>30x30</slider_image_dimension>
+            </manufacturer_slider>
+            <pagination_settings>
+                <add_toolbar_brand_list>1</add_toolbar_brand_list>
+                <add_toolbar_brand_view>1</add_toolbar_brand_view>
+            </pagination_settings>
+            <brand_sitemap>
+                <priority>1</priority>
+            </brand_sitemap>
+        </manufacturer>
+    </default>
+</config>

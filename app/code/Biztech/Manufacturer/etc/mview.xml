@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Mview/etc/mview.xsd">
+    <view id="manufacturer_url" class="Biztech\Manufacturer\Model\Indexer\Url" group="indexer">
+        <subscriptions>
+            <table name="manufacturer" entity_column="manufacturer_id" />
+            <table name="manufacturer_text" entity_column="text_id" />
+            <table name="url_rewrite" entity_column="url_rewrite_id" />
+        </subscriptions>
+    </view>
+    <view id="manufacturer_view_data" class="Biztech\Manufacturer\Model\Indexer\Data" group="indexer">
+        <subscriptions>
+            <table name="manufacturer" entity_column="manufacturer_id" />
+            <table name="manufacturer_text" entity_column="text_id" />
+        </subscriptions>
+    </view>
+</config>

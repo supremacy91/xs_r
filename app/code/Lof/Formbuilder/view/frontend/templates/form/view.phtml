@@ -1,0 +1,59 @@
+<?php
+$helper = $this->helper("Lof\Formbuilder\Helper\Data");
+$form = $block->getCurrentForm();
+$fields = $form->getFields();
+$modId = time() . rand();
+$reCaptchaPublicKey = $block->getConfig("general_settings/captcha_publickey");
+$reCaptchaPrivateKey = $block->getConfig("general_settings/captcha_privatekey");
+$before_form_content = $helper->filter($form->getData('before_form_content'));
+$after_form_content = $helper->filter($form->getData('after_form_content'));
+?>
+<div id="lofform<?php echo $modId ?>" class="formbuilder-form">
+    <?php if ($before_form_content != '') { ?>
+        <div class="before-form-content">
+            <?php echo $before_form_content; ?>
+        </div>
+    <?php } ?>
+    <form id="formbuilder<?php echo $modId ?>" class="formbuilder form" action="<?php echo $block->getFormAction(); ?>"
+          id="formbuilder-form<?php echo $modId ?>" method="post"
+          data-hasrequired="<?php echo __('* Required Fields') ?>" data-mage-init='{"validation":{}}'
+          enctype="multipart/form-data">
+        <?php if ($fields) { ?>
+            <div class="form-list row">
+                <?php foreach ($fields as $field) { ?>
+                    <div class="field <?php echo isset($field['wrappercol']) ? 'col-sm-' . $field['wrappercol'] : 'col-sm-12'; ?> <?php if ($field['field_type'] == 'section_break' && $field['show_breakline'] == 2) {
+                        echo 'hidden';
+                    } ?>">
+                        <div class="response-field-<?php echo $field['field_type'] ?>">
+                            <?php echo $block->getField($field['field_type'], $field); ?>
+                        </div>
+                    </div>
+                <?php } ?>
+                <?php if ($form->getShowCaptcha()) { ?>
+                    <div class="field col-sm-12">
+                        <div class="g-recaptcha" data-sitekey="<?php echo $reCaptchaPublicKey ?>"></div>
+                    </div>
+                <?php } ?>
+                <input type="hidden" name="return_url" value="<?php echo $block->getCurrentUrl() ?>"/>
+            </div>
+        <?php } ?>
+        <div class="row">
+            <div class="buttons-set col-sm-12">
+                <input type="hidden" name="formId" id="hideit" value="<?php echo $form->getId(); ?>"/>
+                <button type="submit" title="<?php echo __('Submit') ?>" class="button">
+                    <span><span><?php echo __('Submit') ?></span></span></button>
+                <?php if ($submit_button_text = $form->getSubmitButtonText()) { ?>
+                    <div class="clear"><?php echo $submit_button_text; ?></div>
+                <?php } ?>
+            </div>
+        </div>
+    </form>
+    <?php if ($form->getShowCaptcha()) { ?>
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+    <?php } ?>
+    <?php if ($after_form_content != '') { ?>
+        <div class="before-form-content">
+            <?php echo $after_form_content; ?>
+        </div>
+    <?php } ?>
+</div>

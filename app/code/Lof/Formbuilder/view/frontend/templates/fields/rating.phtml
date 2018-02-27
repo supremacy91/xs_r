@@ -1,0 +1,50 @@
+<?php
+$helper = $this->helper("Lof\Formbuilder\Helper\Fields");
+$dataHelper = $this->helper("Lof\Formbuilder\Helper\Data");
+$form_data = $this->getData('form_data');
+$field = $this->getData('field_data');
+$field_type = $field['field_type'];
+$label = $field['label'];
+$options = $field['field_options'];
+$required = $field['required'];
+$cid = $field['cid'];
+$field_name = $helper->getFieldPrefix() . $cid;
+$available_fields = $helper->getAvailableFields();
+$field_validate = isset($available_fields[$field_type]) ? $available_fields[$field_type] : '';
+$validates = $field_validate;
+$field_help = isset($options['description']) ? $options['description'] : '';
+if ($field_validate && is_array($field_validate)) {
+    $validates = implode(" ", $field_validate);
+}
+$limit = isset($field['limit']) ? (int)$field['limit'] : 5;
+$default = isset($field['default']) ? (float)$field['default'] : 0;
+?>
+<div class="subtemplate-wrapper">
+    <label for="<?php echo $field_name; ?>"
+           class="<?php echo (1 == $required) ? 'required' : ''; ?>"><?php echo $label; ?><?php echo (1 == $required) ? '<em>*</em>' : ''; ?></label>
+    <div class="input-box">
+        <input name="<?php echo $field_name; ?>" id="<?php echo $field_name; ?>" title="<?php echo $label; ?>"
+               value="<?php echo ($form_data && isset($form_data[$field_name])) ? $form_data[$field_name] : ''; ?>"
+               class="input-text <?php echo (1 == $required) ? 'required-entry' : ''; ?>" type="hidden"/>
+        <input name="<?php echo $field_name . "_limit"; ?>" id="<?php echo $field_name . "_limit"; ?>"
+               title="<?php echo $label; ?>" value="<?php echo $limit; ?>" class="input-text" type="hidden"/>
+        <div id="<?php echo $field_name . "_rating"; ?>" class="ves-rating-play"></div>
+        <script type="text/javascript">
+            require(['jquery', 'Lof_Formbuilder/js/raty/raty'], function () {
+                jQuery('#<?php echo $field_name . "_rating"; ?>').raty({
+                    path: '<?php echo $dataHelper->getMediaUrl() . "lof/formbuilder/rating/"; ?>',
+                    score: <?php echo $default; ?>,
+                    number: <?php echo $limit; ?>,
+                    targetScore: '#<?php echo $field_name; ?>',
+                    click: function (score, evt) {
+                        jQuery('#<?php echo $field_name; ?>').val(score);
+                        return false;
+                    }
+                });
+            });
+        </script>
+        <?php if ($field_help) { ?>
+            <span class="help-block"><?php echo $field_help; ?></span>
+        <?php } ?>
+    </div>
+</div>

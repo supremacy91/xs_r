@@ -1,0 +1,7 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Parcelpro_Shipment/css/parcelpro.css"/>
+        <script src="Parcelpro_Shipment/js/parcelpro.js"/>
+        <script src="Parcelpro_Shipment/js/parcelpro-modal.js"/>
+    </head>
+</page>

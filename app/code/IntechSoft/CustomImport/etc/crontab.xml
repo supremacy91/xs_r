@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="tjerk_custom_import_cron">
+        <job name="tjerk_custom_import_hour" instance="IntechSoft\CustomImport\Cron\Import\Hour" method="execute">
+            <schedule>0 10,11,12,13,14,15,16,17,18,19,20,21,22 * * *</schedule>
+        </job>
+        <job name="tjerk_custom_import_day" instance="IntechSoft\CustomImport\Cron\Import\Day" method="execute">
+            <schedule>0 1 * * *</schedule>
+        </job>
+    </group>
+</config>

@@ -1,0 +1,17 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_Xlanding
+ */
+?>
+<?php if ($block->getPage()->getLayoutBottomDescription()) :?>
+    <div class="amasty-xlanding-bottom-description">
+        <?php echo $block->getLayoutBottomDescription();?>
+    </div>
+<?php endif ?>
+<?php if ($block->getPage()->getLayoutStaticBottom()) :?>
+    <div class="amasty-xlanding-bottom-static">
+        <?php echo $block->getCmsBlockHtml($block->getPage()->getLayoutStaticBottom());?>
+    </div>
+<?php endif;?>

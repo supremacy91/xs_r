@@ -1,0 +1,55 @@
+<?php
+$helper = $this->helper("Lof\Formbuilder\Helper\Fields");
+$form_data = $this->getData('form_data');
+$field = $this->getData('field_data');
+$field_type = $field['field_type'];
+$label = $field['label'];
+$options = $field['field_options'];
+$required = $field['required'];
+$cid = $field['cid'];
+$field_name = $helper->getFieldPrefix() . $cid;
+$available_fields = $helper->getAvailableFields();
+$field_validate = isset($available_fields[$field_type]) ? $available_fields[$field_type] : '';
+$validates = $field_validate;
+$field_help = isset($options['description']) ? $options['description'] : '';
+if ($field_validate && is_array($field_validate)) {
+    $validates = implode(" ", $field_validate);
+}
+$include_other_option = isset($options['include_other_option']) ? $options['include_other_option'] : 0; ?>
+<div class="subtemplate-wrapper">
+    <label for="<?php echo $field_name; ?>"
+           class="<?php echo (1 == $required) ? 'required' : ''; ?>"><?php echo $label; ?><?php //echo (1==$required)?'<em>*</em>':'';?></label>
+    <div class="input-box">
+        <div class="input-list">
+            <ul class="list-options">
+                <?php if ($options['options']) {
+                foreach ($options['options'] as $key => $val) {
+                $item_label = $val['label'];
+                $item_checked = $val['checked'];
+                if ($form_data && isset($form_data[$field_name.$key]) && $form_data[$field_name.$key] == $item_label) {
+                $item_checked = true;
+                }
+                if (!$include_other_option && ($key == (count($options['options']) - 1))) { ?>
+                <li>
+                    <input type="checkbox" name="<?php echo $field_name.$key.'[]'; ?>"
+                           id="<?php echo $field_name.$key; ?>" title="<?php echo $field_name; ?>" value="1"
+                           class="<?php //echo (1==$required)?'validate-one-required':''; ?>" <?php echo ($item_checked)?'checked="checked"':'' ?>/>
+                    <label for="<?php echo $field_name.$key; ?>"><?php echo $item_label; ?></label>
+                </li>
+                <?php } else { ?>
+                <li>
+                    <input type="checkbox" name="<?php echo $field_name.$key.'[]' ?>"
+                           id="<?php echo $field_name.$key; ?>" title="<?php echo $field_name; ?>"
+                           value="1" <?php echo ($item_checked)?'checked="checked"':'' ?>/> <label
+                            for="<?php echo $field_name.$key; ?>"><?php echo $item_label; ?></label>
+                </li>
+                <?php }
+                } ?>
+					<?php } ?>
+            </ul>
+        </div>
+        <?php if ($field_help) { ?>
+        <span class="help-block"><?php echo $field_help; ?></span>
+        <?php } ?>
+    </div>
+</div>

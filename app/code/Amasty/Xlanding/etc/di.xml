@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_Xlanding
+ */
+-->
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+            <item name="amasty_xlanding_page_listing_data_source" xsi:type="string">Amasty\Xlanding\Model\ResourceModel\Page\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Amasty\Xlanding\Model\ResourceModel\Page\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">amasty_xlanding_page</argument>
+            <argument name="eventPrefix" xsi:type="string">amasty_xlanding_page_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">page_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Amasty\Xlanding\Model\ResourceModel\Page</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\CatalogSearch\Model\Search\IndexBuilder">
+        <plugin name="Amasty_Xlanding::SearchIndexBuilder" type="Amasty\Xlanding\Plugin\SearchIndexBuilder"/>
+    </type>
+    <type name="Mirasvit\SearchSphinx\Model\Search\IndexBuilder">
+        <plugin name="Amasty_Xlanding::MirasvitSphinxSearchIndexBuilder" type="Amasty\Xlanding\Plugin\SearchIndexBuilder"/>
+    </type>
+    <type name="Mirasvit\SearchMysql\Model\Search\IndexBuilder">
+        <plugin name="Amasty_Xlanding::MirasvitMysqlSearchIndexBuilder" type="Amasty\Xlanding\Plugin\SearchIndexBuilder"/>
+    </type>
+    <type name="Magento\Catalog\Block\Product\ProductList\Toolbar">
+        <plugin name="Amasty_Xlanding::ProductListToolbar" type="Amasty\Xlanding\Plugin\ProductListToolbar"/>
+    </type>
+
+    <preference for="Magento\Sitemap\Model\Sitemap" type="Amasty\Xlanding\Model\Sitemap" />
+
+</config>

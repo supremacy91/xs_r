@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <!--<preference for="Magento\UrlRewrite\Model\UrlRewrite" type="Biztech\Manufacturer\Model\Urlrewrite" />-->
+
+    <preference for="Magento\Sitemap\Model\Sitemap" type="Biztech\Manufacturer\Model\Sitemap" />
+</config>

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+
+    <head>
+        <referenceContainer name="content">
+        </referenceContainer>
+    </head>
+    <body>
+      <attribute name="class" value="page-with-filter"/>
+        <referenceContainer name="sidebar.main">
+            <block class="Biztech\Manufacturer\Block\Navigation\Custnavigation" name="custom.leftnav" before="-" template="Biztech_Manufacturer::layer/view.phtml">
+                <block class="Magento\LayeredNavigation\Block\Navigation\State" name="catalog.navigation.state" as="state" />
+                <block class="Magento\LayeredNavigation\Block\Navigation\FilterRenderer" name="catalog.navigation.renderer" as="renderer" template="Magento_LayeredNavigation::layer/filter.phtml"/>
+            </block>
+        </referenceContainer>
+      <!--   <attribute name="class" value="page-products"/>\
+         <attribute name="class" value="page-with-filter"/>
+        <referenceContainer name="sidebar.main">
+            <block class="Biztech\Manufacturer\Block\Navigation\Category" name="catalog.leftnav" before="-" template="layer/view.phtml">
+                <block class="Magento\LayeredNavigation\Block\Navigation\State" name="catalog.navigation.state" as="state" />
+                <block class="Magento\LayeredNavigation\Block\Navigation\FilterRenderer" name="catalog.navigation.renderer" as="renderer" template="layer/filter.phtml"/>
+            </block>
+        </referenceContainer> -->
+
+
+        <referenceContainer name="content">         
+            <block class="Biztech\Manufacturer\Block\Manufacturer\View" name="manufacturer_view" template="manufacturer/view.phtml">
+                <block class="Magento\Catalog\Block\Product\ProductList\Toolbar" name="product_list_toolbar" template="Magento_Catalog::product/list/toolbar.phtml">
+                        <block class="Magento\Theme\Block\Html\Pager" name="product_list_toolbar_pager"/>
+                    </block>
+                    <action method="setToolbarBlockName">
+                        <argument name="name" xsi:type="string">product_list_toolbar</argument>
+                    </action>
+            </block>
+        </referenceContainer>      
+    </body>
+</page>

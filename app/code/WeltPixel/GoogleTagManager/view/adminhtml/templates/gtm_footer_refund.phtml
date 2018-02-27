@@ -1,0 +1,18 @@
+<?php
+// @codingStandardsIgnoreFile
+?>
+<?php
+$_helper = $this->helper('WeltPixel\GoogleTagManager\Helper\Data');
+?>
+<?php if ($_helper->isEnabled()) : ?>
+    <?php echo $_helper->getGtmCodeSnippetForBody(); ?>
+    <?php $dataLayerObject = $this->getDataLayerAsJson(); ?>
+        <?php if ($dataLayerObject != '[[]]') : ?>
+            <script>
+                var dlObjects = <?php echo $dataLayerObject; ?>;
+                for (var i in dlObjects) {
+                    dataLayer.push(dlObjects[i]);
+                }
+            </script>
+    <?php endif; ?>
+<?php endif; ?>

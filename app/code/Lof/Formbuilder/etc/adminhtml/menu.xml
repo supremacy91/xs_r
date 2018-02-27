@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_Formbuilder
+ * @copyright  Copyright (c) 2016 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../Backend/etc/menu.xsd">
+    <menu>
+        <add id="Lof_Formbuilder::form" sortOrder="30" title="Formbuilder" module="Lof_Formbuilder"
+             resource="Lof_Formbuilder::form" parent="Lof_All::lof_all"/>
+        <add id="Lof_Formbuilder::form_edit" title="Add New Form" module="Lof_Formbuilder" sortOrder="30"
+             parent="Lof_Formbuilder::form" action="formbuilder/form/new" resource="Lof_Formbuilder::form"/>
+        <add id="Lof_Formbuilder::form_manage" title="Forms" module="Lof_Formbuilder" sortOrder="40"
+             parent="Lof_Formbuilder::form" action="formbuilder/form/index" resource="Lof_Formbuilder::form"/>
+        <add id="Lof_Formbuilder::message_manage" title="Messages" module="Lof_Formbuilder" sortOrder="50"
+             parent="Lof_Formbuilder::form" action="formbuilder/message/index" resource="Lof_Formbuilder::message"/>
+        <add id="Lof_Formbuilder::model_manage" title="Model" module="Lof_Formbuilder" sortOrder="70"
+             parent="Lof_Formbuilder::form" action="formbuilder/model/index" resource="Lof_Formbuilder::model"/>
+        <add id="Lof_Formbuilder::model_categorires_manage" title="Model Categories" module="Lof_Formbuilder"
+             sortOrder="80" parent="Lof_Formbuilder::form" action="formbuilder/modelcategory/index"
+             resource="Lof_Formbuilder::category"/>
+        <add id="Lof_Formbuilder::config_form" title="Settings" module="Lof_Formbuilder" sortOrder="10000"
+             parent="Lof_Formbuilder::form" action="adminhtml/system_config/edit/section/lofformbuilder"
+             resource="Lof_Formbuilder::config_form"/>
+    </menu>
+</config>

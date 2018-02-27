@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Biztech_Manufacturer::css/manufacturer.css" media="all" order="900"/>
+    </head>
+    <body>
+        <!-- <attribute name="class" value="manufacturer-icon" /> -->
+        <!-- <attribute name="class" value="boxed layout"/> -->
+        <referenceContainer name="page.main.actions">
+            <block class="Magento\Backend\Block\Store\Switcher" name="category.store.switcher" template="Magento_Backend::store/switcher.phtml">
+                <!--<arguments>-->
+                <!--<argument name="switch_url" xsi:type="url" path="catalog/*/*">-->
+                <!--<param name="_current" xsi:type="boolean">true</param>-->
+                <!--<param name="_query" xsi:type="boolean">false</param>-->
+                <!--<param name="store" xsi:type="null" />-->
+                <!--</argument>-->
+                <!--</arguments>-->
+            </block>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Biztech\Manufacturer\Block\Adminhtml\Manufacturer\Grid" name="manufacturer_grid_container"/>
+        </referenceContainer>
+    </body>
+</page>

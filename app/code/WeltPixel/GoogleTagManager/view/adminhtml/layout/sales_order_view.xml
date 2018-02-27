@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!-- use head.additional currently seems to be unused in admin theme -->
+        <block ifconfig="weltpixel_googletagmanager/general/enable" class="Magento\Framework\View\Element\Template" name="head.additional" as="head.additional" template="WeltPixel_GoogleTagManager::gtm_head.phtml"/>
+        <container name="gtm.before.body.end" as="gtm_before_body_end" label="Gtm Before Body End" after="before.body.end">
+            <block ifconfig="weltpixel_googletagmanager/general/enable" class="WeltPixel\GoogleTagManager\Block\Adminhtml\Refund" name="weltpixel_gtm_footer_refund" after="-" template="WeltPixel_GoogleTagManager::gtm_footer_refund.phtml" ttl="0" />
+        </container>
+    </body>
+</page>

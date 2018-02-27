@@ -1,0 +1,8 @@
+#manufacturerGrid_table .range { width: 400px; }
+#manufacturerGrid_table .range-line { display: inline-block; margin-right: 10px; width: 47%; }
+#manufacturerGrid_table .col-id.col-manufacturer_id {
+  width: 29%;
+}
+.manufacturer-icon {background: rgba(0, 0, 0, 0) url("../images/manufacturer.png") no-repeat scroll center top 8px;}
+.admin__menu .item-biztech-manufacturer-index.level-0 > a.manufacturer-icon::before{content: "";}
+.admin__menu .level-0:hover > a.manufacturer-icon {background: rgba(0, 0, 0, 0) url("../images/manufacturer-hover.png") no-repeat scroll center top 8px;}

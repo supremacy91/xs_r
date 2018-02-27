@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_Xlanding
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="amasty_xlanding" translate="label" type="text" sortOrder="161812" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Landing Pages</label>
+            <tab>amasty</tab>
+            <resource>Amasty_Xlanding::amasty_xlanding</resource>
+            <group id="import" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Import</label>
+                <field id="store" translate="label" type="multiselect" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Choose Target Store</label>
+                    <source_model>Magento\Eav\Model\Entity\Attribute\Source\Store</source_model>
+                </field>
+                <field id="file" translate="label comment" type="file" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>CSV File</label>
+                    <upload_dir config="system/filesystem/media" scope_info="1">amasty/ogrid/import</upload_dir>
+                    <backend_model>Amasty\Xlanding\Model\Source\Import</backend_model>
+                </field>
+
+            </group>
+        </section>
+    </system>
+</config>

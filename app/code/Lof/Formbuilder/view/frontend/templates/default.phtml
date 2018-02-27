@@ -1,0 +1,174 @@
+<?php
+/**
+ * Landofcoder
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Landofcoder EULA that is bundled with
+ * this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.landofcoder.com/LICENSE-1.0.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade the extension
+ * to newer versions in the future. If you wish to customize the extension
+ * for your needs please refer to http://www.landofcoder.com/ for more information
+ *
+ * @category   Lof
+ * @package    Lof_Formbuilder
+ * @copyright  Copyright (c) 2016 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+
+/**
+ * Form Builder extension
+ *
+ * @category   Lof
+ * @package    Lof_Formbuilder
+ * @author     Landofcoder Dev Team <landofcoder@gmail.com>
+ */
+$modId = rand(1, 9) + rand();
+$customForm = $this->getCustomForm();
+if ($customForm) {
+    $fields = $customForm->getFields();
+    if (isset($fields[0]) && isset($fields[0]['fields'])) {
+        unset($fields[0]);
+    }
+    $skin = $customForm->getData("skin");
+
+    if (isset($fields) && $fields) {
+
+        $show_captcha = $customForm->getData('show_captcha');
+        $enable_captcha = Mage::getStoreConfig('lof_formbuilder/recaptcha/enabled');
+        $submit_button_text = $customForm->getSubmitButtonText();
+        $before_form_content = $customForm->getBeforeFormContent();
+        $after_form_content = $customForm->getAfterFormContent();
+        $settings = $customForm->getSettings();
+        $heading = $customForm->getTitle();
+        ?>
+        <div class="formbuilder <?php echo $skin; ?>">
+            <div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
+            <?php if (trim($heading)): ?>
+                <div class="page-title">
+                    <h1><?php echo $heading; ?></h1>
+                </div>
+            <?php endif; ?>
+            <?php
+            if ($fields) {
+                echo $this->getChildHtml('html_calendar');
+            }
+            ?>
+            <?php if ($before_form_content) { ?>
+                <div class="before-form-content">
+                    <?php echo $before_form_content; ?>
+                </div>
+            <?php } ?>
+
+            <form action="<?php echo $this->getFormAction(); ?>" id="customFormBuilder<?php echo $modId; ?>"
+                  method="post" class="scaffold-form" enctype="multipart/form-data">
+                <div class="fieldset">
+                    <!-- Show Custom Fields-->
+                    <ul class="form-list">
+                        <?php if ($fields) { ?>
+                            <?php foreach ($fields as $field) { ?>
+                                <li class="fields">
+                                    <div class="field">
+                                        <?php
+                                        echo $this->getField($field['field_type'], $field);
+                                        ?>
+                                    </div>
+                                </li>
+                            <?php } ?>
+                            <?php if ($show_captcha == 1 && $enable_captcha && $captcha = $this->getReCaptcha()) { ?>
+                                <li>
+                                    <?php echo $this->getReCaptcha() ?>
+                                </li>
+                            <?php } ?>
+                        <?php } ?>
+
+                    </ul>
+                </div>
+                <div class="buttons-set">
+                    <input type="text" name="formId" id="hideit" value="<?php echo $customForm->getId(); ?>"
+                           style="display:none !important;"/>
+                    <input type="text" name="product_id" id="product_id" value="" style="display:none !important;"/>
+                    <button type="submit" title="<?php echo Mage::helper('lof_formbuilder')->__('Submit') ?>"
+                            class="button">
+                        <span><span><?php echo Mage::helper('lof_formbuilder')->__('Submit') ?></span></span></button>
+                    <?php if ($submit_button_text) { ?>
+                        <div class="clear"><?php echo $submit_button_text; ?></div>
+                    <?php } ?>
+                </div>
+            </form>
+            <?php if ($after_form_content) { ?>
+                <div class="after-form-content">
+                    <?php echo $after_form_content; ?>
+                </div>
+            <?php } ?>
+        </div>
+        <script type="text/javascript">
+            //<![CDATA[
+            var customFormBuilder<?php echo $modId; ?> = new VarienForm('customFormBuilder<?php echo $modId; ?>', true);
+            //]]>
+        </script>
+        <script type="text/javascript">
+            function buildTimeValue(target_id) {
+                var hours = document.getElementById(target_id + "_hours").value;
+                var minutes = document.getElementById(target_id + "_minutes").value;
+                var seconds = document.getElementById(target_id + "_seconds").value;
+                var am_pm = document.getElementById(target_id + "_am_pm").value;
+                ;
+
+                var time = "";
+
+                hours = parseInt(hours);
+                if (hours < 10) {
+                    hours = "0" + hours;
+                }
+                minutes = parseInt(minutes);
+                if (minutes < 10) {
+                    minutes = "0" + minutes;
+                }
+                seconds = parseInt(seconds);
+                if (seconds < 10) {
+                    seconds = "0" + seconds;
+                }
+
+                time = hours + ":" + minutes + ":" + seconds + " " + am_pm;
+
+                document.getElementById(target_id).value = time;
+
+            }
+
+            Validation.add('validate-min-max', 'You failed to enter the number!', function (v, elm) {
+
+                var reMax = new RegExp(/^maximum-length-[0-9]+$/);
+                var reMin = new RegExp(/^minimum-length-[0-9]+$/);
+                var validate_units = elm.readAttribute("data-units");
+                var result = true;
+
+                $w(elm.className).each(function (name, index) {
+                    if (name.match(reMax) && result) {
+                        var length = name.split('-')[2];
+                        if (validate_units == "words") {
+                            result = (v.split(' ').length <= length);
+                        } else {
+                            result = (v.length <= length);
+                        }
+
+                    }
+                    if (name.match(reMin) && result && !Validation.get('IsEmpty').test(v)) {
+                        var length = name.split('-')[2];
+                        if (validate_units == "words") {
+                            result = (v.split(' ').length >= length);
+                        } else {
+                            result = (v.length >= length);
+                        }
+                    }
+                });
+                return result;
+            });
+        </script>
+    <?php } ?>
+<?php } ?>

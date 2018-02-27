@@ -1,0 +1,50 @@
+<?php
+$helper = $this->helper("Lof\Formbuilder\Helper\Fields");
+$form_data = $this->getData('form_data');
+$field = $this->getData('field_data');
+$field_type = $field['field_type'];
+$label = $field['label'];
+$options = $field['field_options'];
+$required = $field['required'];
+$cid = $field['cid'];
+$field_name = $helper->getFieldPrefix() . $cid;
+$available_fields = $helper->getAvailableFields();
+$html = '';
+$field_validate = isset($available_fields[$field_type]) ? $available_fields[$field_type] : '';
+$validates = $field_validate;
+$field_help = isset($options['description']) ? $options['description'] : '';
+if ($field_validate && is_array($field_validate)) {
+    $validates = implode(" ", $field_validate);
+}
+?>
+<div class="subtemplate-wrapper">
+    <label for="<?php echo $field_name; ?>"
+           class="<?php echo (1 == $required) ? 'required' : ''; ?>"><?php echo $label; ?><?php echo (1 == $required) ? '<em>*</em>' : ''; ?></label>
+    <div class="row">
+        <div class="input-box <?php echo isset($field['fieldcol']) ? 'col-sm-' . $field['fieldcol'] : 'col-sm-12'; ?>">
+            <?php
+            if ($options['options']) { ?>
+                <select name="<?php echo $field_name; ?>" id="<?php echo $field_name; ?>"
+                        title="<?php echo $field_name; ?>"
+                        class="<?php echo (1 == $required) ? 'required-entry' : ''; ?> <?php echo $validates; ?>">
+                    <?php if (isset($options['include_blank_option']) && $options['include_blank_option']) { ?>
+                        <option value=""></option>
+                    <?php } ?>
+                    <?php foreach ($options['options'] as $key => $val) {
+                        $item_label = $val['label'];
+                        $item_checked = $val['checked'];
+                        if ($form_data && isset($form_data[$field_name]) && $form_data[$field_name] == $item_label) {
+                            $item_checked = true;
+                        }
+                        ?>
+                        <option value="<?php echo $block->escapeQuote($item_label); ?>" <?php echo ($item_checked) ? 'selected="selected"' : ''; ?>><?php echo $item_label; ?></option>
+                    <?php } ?>
+                </select>
+            <?php }
+            ?>
+            <?php if ($field_help) { ?>
+                <span class="help-block"><?php echo $field_help ?></span>
+            <?php } ?>
+        </div>
+    </div>
+</div>

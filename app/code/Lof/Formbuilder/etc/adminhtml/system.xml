@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_Formbuilder
+ * @copyright  Copyright (c) 2016 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../Config/etc/system_file.xsd">
+    <system>
+        <tab id="landofcoder" translate="label" sortOrder="400">
+            <label>
+                <![CDATA[<a href="http://landofcoder.com" target="_BLANK" title=""Magento Marketplace, Opencart Marketplace, Magento 2 Extension, Free Magento Extension, Opencart Advanced Reports">landofcoder.com</a>]]></label>
+        </tab>
+        <section id="lofformbuilder" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <class>separator-top</class>
+            <label>Formbuilder</label>
+            <tab>landofcoder</tab>
+            <resource>Lof_Formbuilder::config_form</resource>
+            <group id="general_settings" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>General Settings</label>
+                <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="route" translate="label comment" type="text" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Route</label>
+                    <comment>
+                        <![CDATA[Add Your extension at end of Link, for example: http://domain.com/route/FORM_IDENTIFIER]]></comment>
+                </field>
+                <field id="dateformat" translate="label comment" type="select" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Date Format</label>
+                    <source_model>Lof\Formbuilder\Model\Config\Source\DateFormat</source_model>
+                    <comment>
+                        <![CDATA[Full: Tuesday, April 12, 1952 AD or 3:30:42pm PST<br/>LONG: January 12, 1952 or 3:30:32pm<br/>MEDIUM: Jan 12, 1952<br/>SHORT: 12/13/52 or 3:30pm]]></comment>
+                </field>
+                <field id="recaptcha_heading" translate="label comment" type="text" sortOrder="40" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Recaptcha Settings</label>
+                    <frontend_model>Lof\Formbuilder\Block\Adminhtml\System\Config\Form\Field\Heading</frontend_model>
+                </field>
+                <field id="captcha_publickey" translate="label comment" type="text" sortOrder="50" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>ReCAPTCHA Site Key</label>
+                    <depends>
+                        <field id="comment_type">default</field>
+                    </depends>
+                </field>
+                <field id="captcha_privatekey" translate="label comment" type="text" sortOrder="60" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>ReCAPTCHA Secret Key</label>
+                    <depends>
+                        <field id="comment_type">default</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="email_settings" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Email Setting</label>
+                <field id="enable_testmode" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enabled Test Mode</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[Enable Test Mode don't send any email, It just store form messages. Enable it if you test the extension on the local which don't have SMTP service.]]></comment>
+                </field>
+                <field id="sender_email_identity" translate="label" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="send_thanks_email" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Allow send thanks you email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[Enable Test Mode don't send any email, It just store form messages. Enable it if you test the extension on the local which don't have SMTP service.]]></comment>
+                </field>
+            </group>
+            <group id="field_templates" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Fied Templates</label>
+                <field id="address" translate="label comment" type="textarea" sortOrder="0" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Address</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

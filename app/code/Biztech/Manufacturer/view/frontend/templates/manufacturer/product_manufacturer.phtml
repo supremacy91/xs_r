@@ -1,0 +1,29 @@
+<?php
+$_product = $this->getProduct();
+
+$attribute = $this->helper('Biztech\Manufacturer\Helper\Data')->getConfigValue('manufacturer/general/brandlist_attribute');
+if ($_product->getData($attribute)) :
+    $attr = $_product->getResource()->getAttribute($attribute);
+    $bName = $attrText = $_product->getAttributeText($attribute);
+    /*if( $attr->usesSource() ){
+        $bName = $attr->getSource()->getOptionId($attrText);
+    }*/
+
+    $_manufacturer = $this->helper('Biztech\Manufacturer\Helper\Data')->getManufacturerCollection();
+    $_manufacturer->addFieldToFilter('manufacturer_name', $bName);
+
+    if( $_manufacturer->count() !== 0 ){
+
+        $_manufacturer = $_manufacturer->getData()[0];
+
+
+        $imageUrl = $this->helper('Biztech\Manufacturer\Helper\Data')->getImageUrl($_manufacturer['filename'], 'product_thumb');
+        echo $this->getLayout()->createBlock('\Magento\Framework\View\Element\Template')
+        ->setManufacturerImage($imageUrl)->setListPageFlag(1)
+        ->setManufacturerName($_manufacturer['brand_name'])
+        ->setManufacturerConfig($this->helper('Biztech\Manufacturer\Helper\Data')->getConfig())
+        ->setImageType('product_thumb')
+        ->setTemplate('Biztech_Manufacturer::manufacturer/manufacturer_resize.phtml')
+        ->toHtml(); 
+    }
+endif;

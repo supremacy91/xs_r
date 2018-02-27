@@ -1,0 +1,64 @@
+<?php
+
+$_manufacturerCollection = $this->getHelper()->getManufacturerCollection();
+// $_manfuacturerCollection->addFieldToFilter('show_in_sidebar',1);
+$_manufacturerCollection->setOrder('position', 'asc');
+
+if( $_manufacturerCollection->count() ){
+	$maxSlide = $this->getConfig()->getCurrentStoreConfigValue('manufacturer/manufacturer_slider/slider_maxslides');
+
+	if( is_null($maxSlide) )
+		$maxSlide = 6;
+
+	list($width, $height) = explode('x',$this->getConfig()->getCurrentStoreConfigValue('manufacturer/manufacturer_slider/slider_image_dimension'));
+
+	if( is_null($width) )
+		$width = 100;
+
+	if( is_null($height) )
+		$height = 100;
+
+	$margin = $this->getConfig()->getCurrentStoreConfigValue('manufacturer/manufacturer_slider/slider_margin');
+	if( is_null($margin) )
+		$margin = 10;
+}
+?>
+<script type="text/javascript">
+	require([
+		'jquery',
+		'jquery-owl-carousel'
+		],function(){
+			jQuery(document).ready(function(){
+				var owl = jQuery('#manufacturer-slider');
+
+				owl.owlCarousel({
+					pagination:false,
+					autoPlay : true,
+					navigation : true,
+					itemsScaleUp:true,
+					items : <?php echo (int)$maxSlide; ?>, 
+					itemsDesktop : [1000,5],
+					itemsDesktopSmall : [900,3],
+					itemsTablet: [600,2],
+					itemsMobile : false
+				});
+			});
+
+		});
+</script>
+<div id="manufacturer-slider" class="owl-carousel owl-theme">
+	<?php 
+	foreach ($_manufacturerCollection as $_manufacturer) : ?>
+	<div class="item">
+		<?php 
+			$manu_name = $_manufacturer->getBrandName();
+			$replace = array("'");
+			$new_man_name = str_replace($replace, '_', $manu_name);
+			$imageUrl = $this->getHelper()->getImageUrl($_manufacturer->getFilename(), 'large_thumb')
+		?>
+		<a href="<?php echo trim($this->getManufacturerUrl($_manufacturer), '/')?>">
+			<img src="<?php echo $imageUrl ?>" alt="<?php echo $manu_name?>" title="<?php echo $manu_name?>" height="<?php echo $height?>" width="<?php echo $width?>">
+		</a>
+	</div>
+<?php endforeach ?>
+</div>

@@ -1,0 +1,128 @@
+<?php
+$helper = $this->helper("Lof\Formbuilder\Helper\Fields");
+$form_data = $this->getData('form_data');
+$field = $this->getData('field_data');
+$field_type = $field['field_type'];
+$label = $field['label'];
+$options = $field['field_options'];
+$required = $field['required'];
+$show_position = isset($field['show_position']) ? $field['show_position'] : 1;
+$max_model_level = isset($field['max_level']) ? $field['max_level'] : 2;
+$cid = $field['cid'];
+$field_name = $helper->getFieldPrefix() . $cid;
+$available_fields = $helper->getAvailableFields();
+$html = '';
+$field_validate = isset($available_fields[$field_type]) ? $available_fields[$field_type] : '';
+$validates = $field_validate;
+$field_help = isset($options['description']) ? $options['description'] : '';
+if ($field_validate && is_array($field_validate)) {
+    $validates = implode(" ", $field_validate);
+}
+$total = count($options['category_id']);
+?>
+<div class="subtemplate-wrapper">
+    <label for="<?php echo $field_name; ?>"
+           class="<?php echo (1 == $required) ? 'required' : ''; ?>"><?php echo $label; ?><?php echo (1 == $required) ? '<em>*</em>' : ''; ?></label>
+    <div class="input-box">
+        <?php
+        if ($options['category_id']) : ?>
+
+            <?php foreach ($options['category_id'] as $key => $val) {
+                $category_id = $val['value'];
+                $categories = array();
+                $categories = $this->getCategories((int)$category_id, $max_model_level);
+                ?>
+                <?php if ($key == 0): ?>
+                    <div class="row">
+                        <?php if ($show_position == 1): ?>
+                            <td><?php echo __("Pos"); ?></td><?php endif; ?>
+                        <?php if ($categories): ?>
+                            <?php foreach ($categories as $k => $item): ?>
+                                <td>
+                                    <?php echo $item['label']; ?>
+                                </td>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+            <?php }
+        ; ?>
+
+
+            <table class="workflow_table">
+                <tbody>
+                <?php foreach ($options['category_id'] as $key => $val):
+                    $category_id = $val['value'];
+                    $categories = array();
+                    $categories = $this->getCategories((int)$category_id, $max_model_level);
+
+                    ?>
+                    <?php if ($key == 0): ?>
+                    <tr>
+                        <?php if ($show_position == 1): ?>
+                            <td><?php echo __("Pos"); ?></td><?php endif; ?>
+                        <?php if ($categories): ?>
+                            <?php foreach ($categories as $k => $item): ?>
+                                <td>
+                                    <?php echo $item['label']; ?>
+                                </td>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tr>
+                <?php endif; ?>
+                    <tr>
+                        <?php if ($show_position == 1): ?>
+                            <td style="width:25px">
+                                <b>
+                                    <?php echo ($key + 1) . "."; ?>
+                                </b>
+                            </td>
+                        <?php endif; ?>
+                        <?php if ($categories): ?>
+                            <?php $i = 0;
+                            $key_name = "";
+                            foreach ($categories as $k => $item): $key_name .= "[" . $item["id"] . "]"; ?>
+                                <td>
+                                    <select name="<?php echo $field_name . "[" . $key . "][" . $item["id"] . "]"; ?>"
+                                            id="<?php echo $field_name . "_" . $k . '_' . $key; ?>"
+                                            class="<?php echo (1 == $required) ? 'required-entry' : ''; ?> <?php echo $validates; ?>">
+                                        <option value=""><?php echo __("Select a option"); ?></option>
+                                        <?php if ($item['models']) {
+                                            foreach ($item['models'] as $tmp_item) { ?>
+                                                <option value="<?php echo $block->escapeQuote($tmp_item->getTitle()); ?>"
+                                                        data-id="<?php echo $tmp_item->getId(); ?>"><?php echo $tmp_item->getTitle(); ?></option>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                    <?php if ($i > 0): ?>
+                                        <script type="text/javascript">
+                                            require(['prototype'], function (prototype) {
+                                                //&lt;![CDATA[
+                                                FORM_KEY = '<?php echo $block->getFormKey(); ?>';
+                                                new Form.Element.Observer('<?php echo $field_name . "_" . ($k - 1) . '_' . $key; ?>', 1, function (element, value) {
+                                                    new Ajax.Request('<?php echo $this->getDefaultSelectUrl(); ?>', {
+                                                        asynchronous: true,
+                                                        evalScripts: true,
+                                                        parameters: 'store_id=<?php echo $block->getStore()->getStoreId(); ?>' + '&' + 'target_id=<?php echo $field_name . "_" . $k . '_' . $key; ?>' + '&' + 'value=' + $('<?php echo $field_name . "_" . ($k - 1) . '_' . $key; ?>')[$('<?php echo $field_name . "_" . ($k - 1) . '_' . $key; ?>'
+                                                        ).selectedIndex].readAttribute("data-id")
+                                                    })
+                                                })
+                                                //]]&gt;
+                                            });
+                                        </script>
+                                    <?php endif; ?>
+                                </td>
+                                <?php $i++; endforeach; ?>
+                        <?php endif; ?>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+        <?php if ($field_help) { ?>
+            <span class="help-block"><?php echo $field_help ?></span>
+        <?php } ?>
+    </div>
+</div>

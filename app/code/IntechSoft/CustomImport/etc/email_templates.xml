@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="customImportSection_emailGroup_template_id" label="IntechSoft Custom Import email template" file="cron_email.html" type="html" module="IntechSoft_CustomImport" area="adminhtml"/>
+</config>

@@ -1,0 +1,59 @@
+<?php
+if( $this->getHelper()->isEnabled() &&  $this->getConfig()->getCurrentStoreConfigValue('manufacturer/left_configuration/layered_navigation_enabled') ) : 
+	$_manufacturerCollection = $this->getCollection();
+$_manufacturerCollection->addFieldToFilter('show_in_sidebar', '1');
+
+$title = 'Shop By Manufacturer';
+// $_manufacturerCollection->setOrder('position','asc');
+
+
+if($_manufacturerCollection->count() !== 0) :
+	if( $this->getConfig()->getCurrentStoreConfigValue('manufacturer/left_configuration/manufacturer_display_option') ) {
+		$class = 'float-logo';
+	}
+	?>
+	<div class="block block-manufacturer" data-bind="scope: 'manufacturer'">
+		<div class="block-title">
+			<strong><span><?php echo __($title)?><span></strong>
+		</div>
+		<div class="block-content">
+			<ul class="manufacturer-list">
+				<?php
+				$layered_navigation_dimension = explode('x',$this->getConfig()->getCurrentStoreConfigValue('manufacturer/left_configuration/layered_navigation_dimension'));
+				foreach ($_manufacturerCollection as $_manufacturer) :
+					?>
+				<li class="manufacturer-item <?php if($this->getConfig()->getCurrentStoreConfigValue('manufacturer/left_configuration/manufacturer_display_option') == 2){?>left-manufacturer-logo<?php } ?> <?php echo isset($class)?:'';?>">
+					<a class="manufacturer_image-sidebar" href="<?php echo trim($this->getManufacturerUrl($_manufacturer),'/');?>">
+						<?php $imageUrl = $this->getHelper()->getImageUrl($_manufacturer->getFilename(), 'small_thumb'); 
+						if( $imageUrl && 
+							($this->getConfig()->getCurrentStoreConfigValue('manufacturer/left_configuration/manufacturer_display_option') == 0 || $this->getConfig()->getCurrentStoreConfigValue('manufacturer/left_configuration/manufacturer_display_option') == 2 ) 
+							){
+						if(!($imageUrl && ($this->getConfig()->getCurrentStoreConfigValue('manufacturer/manufacturer_brand_list/manufacturer_display_logo_name') == 1 ))) { ?>
+							<img src="<?php echo $imageUrl ?>" width="<?php echo $layered_navigation_dimension[0];?>" height="<?php echo $layered_navigation_dimension[1]?>" title="<?php echo $_manufacturer->getBrandName()?>" class="manufacturer_image-sidebar" />
+						<?php } ?> 
+
+						<?php }
+						if( $this->getConfig()->getCurrentStoreConfigValue('manufacturer/left_configuration/manufacturer_display_option') == 0 || $this->getConfig()->getCurrentStoreConfigValue('manufacturer/left_configuration/manufacturer_display_option') == 1 ){
+							?>
+							<span class="manufacturer-name"><?php echo $_manufacturer->getBrandName();?></span>
+							<?php } ?>
+						</a>
+					</li>
+				<?php endforeach; ?>
+				<li class="manufacturer-item all-manufacturer-page">
+					<a href="<?php echo $this->getUrl('manufacturer') ?>"><?php echo __('Show All Manufacturers') ?></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+<?php endif; ?>
+
+<?php if(/*$this->getConfig()->getCurrentStoreConfigValue('manufacturer/left_configuration/featured_block/manufacturer_type_feature_block') == 1 &&*/ $this->getConfig()->getCurrentStoreConfigValue('manufacturer/left_configuration/featured_block/slider_enabled_column') == 1 ) :?>
+	<?php echo $this->getLayout()->createBlock('\Biztech\Manufacturer\Block\Manufacturer\Index')
+	->setTemplate('manufacturer/featured_column.phtml')
+	->toHtml(); 
+	?>
+<?php endif; ?>
+
+
+<?php endif; //extension enabled and configuration enabled ?>

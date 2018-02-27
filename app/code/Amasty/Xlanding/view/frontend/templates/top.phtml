@@ -1,0 +1,22 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_Xlanding
+ */
+?>
+<?php if ($block->getPage()->getLayoutFile()) :?>
+    <div class="amasty-xlanding-top-image">
+        <img alt="<?php echo $block->getPage()->getLayoutFileAlt();?>" src="<?php echo $block->getLayoutFileUrl();?>"/>
+    </div>
+<?php endif; ?>
+<?php if ($block->getPage()->getLayoutTopDescription()) :?>
+    <div class="amasty-xlanding-top-description">
+        <?php echo $block->getLayoutTopDescription();?>
+    </div>
+<?php endif; ?>
+<?php if ($block->getPage()->getLayoutStaticTop()) :?>
+    <div class="amasty-xlanding-top-static">
+        <?php echo $block->getCmsBlockHtml($block->getPage()->getLayoutStaticTop());?>
+    </div>
+<?php endif;?>

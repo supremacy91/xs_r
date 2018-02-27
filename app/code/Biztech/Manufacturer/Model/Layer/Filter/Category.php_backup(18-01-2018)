@@ -1,0 +1,11 @@
+<?php
+namespace Biztech\Manufacturer\Model\Layer\Filter;
+
+class Category extends \Magento\CatalogSearch\Model\Layer\Filter\Category {
+
+    protected function _getItemsData()
+    {
+    	// die();
+    }
+
+}

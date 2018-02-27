@@ -1,0 +1,107 @@
+<?php
+if( $this->getHelper()->isEnabled() && $this->getHelper()->getConfig()->getCurrentStoreConfigValue('manufacturer/left_configuration/featured_block/slider_enabled_column') ) : ?>
+<?php
+$_manufacturerCollection = $this->getHelper()->getManufacturerCollection();
+
+$title = 'Featured Manufacturers';
+$_manufacturerCollection->addFieldToFilter('is_featured',1);
+$_manufacturerCollection->setOrder('position', 'asc');
+
+if( $_manufacturerCollection->count() ){
+	$maxSlide = $this->getConfig()->getCurrentStoreConfigValue('manufacturer/left_configuration/featured_block/slider_maxslides_column');
+
+	if( is_null($maxSlide) )
+		$maxSlide = 2;
+	list($width, $height) = explode('x',$this->getConfig()->getCurrentStoreConfigValue('manufacturer/left_configuration/featured_block/slider_image_dimension'));
+
+	if( is_null($width) )
+		$width = 100;
+
+	if( is_null($height) )
+		$height = 100;
+
+	$margin = $this->getConfig()->getCurrentStoreConfigValue('manufacturer/left_configuration/featured_block/slider_margin_column');
+	if( is_null($margin) )
+		$margin = 10;
+}
+?>
+<?php if( $_manufacturerCollection->count() ) : ?>
+
+	<div class="block shopbymanufacturer-block featured-block">
+		<div class="block-title">
+			<strong><span><?php echo __($title) ?></span></strong>
+		</div>
+
+		<?php if($this->getConfig()->getCurrentStoreConfigValue('manufacturer/left_configuration/featured_block/manufacturer_type_feature_block') == 1) : ?> 
+			<script type="text/javascript">
+				require([
+					'jquery',
+					'jquery-owl-carousel'
+					],function(){
+						jQuery(document).ready(function(){
+							var sideBarOwl = jQuery('#manufacturer-slider-column');
+
+							sideBarOwl.owlCarousel({
+								items : <?php echo (int)$maxSlide ?>,
+								itemsDesktop : [1000,2],
+								itemsDesktopSmall : [900,2], 
+								itemsTablet: [600,2], 
+								itemsMobile : false,
+								pagination : false,
+								navigation : true,
+								itemsScaleUp : true,
+								// autoHeight : true,
+								autoPlay : true,
+							});
+						});
+
+					});
+				</script>
+				<div class="block-content left-featured-manufacturers">
+					<div id="manufacturer-slider-column" class="owl-carousel owl-theme">
+						<?php 
+						foreach ($_manufacturerCollection as $_manufacturer) : ?>
+						<div class="item">
+							<?php 
+							$manu_name = $_manufacturer->getBrandName();
+							$replace = array("'");
+							$new_man_name = str_replace($replace, '_', $manu_name);
+							$imageUrl = $this->getHelper()->getImageUrl($_manufacturer->getFilename(), 'small_thumb')
+							?>
+							<a href="<?php echo trim($this->getManufacturerUrl($_manufacturer), '/')?>">
+								<img src="<?php echo $imageUrl ?>" alt="<?php echo $manu_name?>" title="<?php echo $manu_name?>" height="<?php echo $height?>" width="<?php echo $width?>">
+							</a>
+						</div>
+					<?php endforeach ?>
+				</div>
+			</div>
+		<?php else: ?>
+			<div class="block-content left-featured-manufacturers">
+				<ul class="manufacturer-list">
+					<?php
+					$layered_navigation_dimension = explode('x',$this->getConfig()->getCurrentStoreConfigValue('manufacturer/left_configuration/layered_navigation_dimension'));
+					foreach ($_manufacturerCollection as $_manufacturer) :
+						?>
+					<li class="manufacturer-item <?php if($this->getConfig()->getCurrentStoreConfigValue('manufacturer/left_configuration/manufacturer_display_option') == 2){?>left-manufacturer-logo<?php } ?> <?php echo isset($class)?:'';?>">
+						<a class="manufacturer_image-sidebar" href="<?php echo trim($this->getManufacturerUrl($_manufacturer),'/');?>">
+							<?php $imageUrl = $this->getHelper()->getImageUrl($_manufacturer->getFilename(), 'small_thumb'); 
+							if( $imageUrl && 
+								($this->getConfig()->getCurrentStoreConfigValue('manufacturer/left_configuration/manufacturer_display_option') == 0 || $this->getConfig()->getCurrentStoreConfigValue('manufacturer/left_configuration/manufacturer_display_option') == 2 ) 
+								){
+								?>
+
+							<img src="<?php echo $imageUrl ?>" width="<?php echo $layered_navigation_dimension[0];?>" height="<?php echo $layered_navigation_dimension[1]?>" title="<?php echo $_manufacturer->getBrandName()?>" class="manufacturer_image-sidebar" />
+							<?php }
+							if( $this->getConfig()->getCurrentStoreConfigValue('manufacturer/left_configuration/manufacturer_display_option') == 0 || $this->getConfig()->getCurrentStoreConfigValue('manufacturer/left_configuration/manufacturer_display_option') == 1 ){
+								?>
+								<span class="manufacturer-name"><?php echo ucfirst($_manufacturer->getBrandName());?></span>
+								<?php } ?>
+							</a>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+		<?php endif;?>
+	</div>
+<?php endif; ?>
+<?php endif; ?>

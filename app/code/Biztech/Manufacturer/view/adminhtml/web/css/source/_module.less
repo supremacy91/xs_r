@@ -1,0 +1,21 @@
+/*@biztechManu-icons-admin__font-name-path: '@{baseDir}fonts/Biztech_Manufacturer/manufacturer';
+@biztechManu-icons-admin__font-name : 'biztechManu';
+.lib-font-face(
+	@family-name:@biztechManu-icons-admin__font-name,
+	@font-path: @biztechManu-icons-admin__font-name-path,
+	@font-weight: normal,
+	@font-style: normal
+);*/
+@biztechManuImage : '@{baseDir}Biztech_Manufacturer/images/manufacturer.png';
+.admin__menu .item-biztech-manufacturer-index.level-0 > a:before {
+	// font-family: @biztechManu-icons-admin__font-name;
+	content: "";
+}
+
+.admin__menu .item-biztech-manufacturer-index.level-0 > a > span {
+	font-size: 9px;
+}
+
+.admin__menu .item-biztech-manufacturer-index.level-0 > a {
+	background: rgba(0, 0, 0, 0) url(@biztechManuImage) no-repeat scroll center top 8px;
+}

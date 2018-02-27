@@ -1,0 +1,119 @@
+<?php
+$is_toolbar = $this->getConfig()->getCurrentStoreConfigValue('manufacturer/pagination_settings/add_toolbar_brand_list');
+if( $is_toolbar ){
+    $_manufacturerCollection = $this->getCollection();
+} else {
+    $_manufacturerCollection = $this->getCollection();
+}
+
+if (!$_manufacturerCollection->count()) :
+    ?>
+<div class="message info empty">
+    <div><?php echo __('No Manufacutrer\'s Found!'); ?></div>
+</div>
+<?php else: ?>
+    <?php 
+    if( $is_toolbar ) {
+        echo $block->getToolbarHtml();
+        echo $block->getAdditionalHtml();
+        $mode = $this->getRequest()->getParam('viewMode');
+        if ($block->getMode() == 'grid' && $mode == 'grid') {
+            $viewMode = 'grid';
+            $image = 'category_page_grid';
+            $showDescription = false;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+        } else {
+            $viewMode = 'list';
+            $image = 'category_page_list';
+            $showDescription = true;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
+        }
+        $pos = $block->getPositioned();
+    }else {
+        $viewMode = 'grid';
+        $image = 'category_page_grid';
+        $showDescription = false;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+        $pos = $block->getPositioned();
+    }
+    ?>
+    <div class="products wrapper <?php /* @escapeNotVerified */ echo $viewMode; ?> products-<?php /* @escapeNotVerified */ echo $viewMode; ?>">
+        <?php $iterator = 1; ?>
+        <ol id="manufacturer-list" class="products list items product-items">
+            <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+            <?php foreach ($_manufacturerCollection as $_manufacturer): ?>
+                <?php /* @escapeNotVerified */ echo($iterator++ == 1) ? '<li class="item product product-item">' : '</li><li class="item product product-item">' ?>
+                <div class="product-item-info" data-container="product-grid">
+                    <?php 
+                    if ($pos != null) {
+                        $position = ' style="left:' . $productImage->getWidth() . 'px;'
+                        . 'top:' . $productImage->getHeight() . 'px;"';
+                    }
+                    $imageUrl = $this->getHelper()->getImageUrl($_manufacturer->getFilename(), 'large_thumb');
+                    if( $imageUrl && 
+                        ($this->getConfig()->getCurrentStoreConfigValue('manufacturer/manufacturer_brand_list/manufacturer_display_logo_name') == 0 || $this->getConfig()->getCurrentStoreConfigValue('manufacturer/manufacturer_brand_list/manufacturer_display_logo_name') == 2 ) 
+                        ) :
+                        ?>
+
+                        <a class="product photo product-item-photo" tabindex="-1" href="<?php echo trim($this->getManufacturerUrl($_manufacturer), '/') ?>">
+                            <?php
+                            echo $this->getLayout()->createBlock('\Magento\Framework\View\Element\Template')
+                            ->setManufacturerImage($imageUrl)
+                            ->setManufacturerName($_manufacturer->getBrandName())
+                            ->setManufacturerConfig($this->getConfig())
+                            ->setImageType('large_thumb')
+                            ->setTemplate('Biztech_Manufacturer::manufacturer/manufacturer_resize.phtml')
+                            ->toHtml();
+
+
+                            ?>
+                        </a>
+                    <?php endif; 
+                    if( $this->getConfig()->getCurrentStoreConfigValue('manufacturer/manufacturer_brand_list/manufacturer_display_logo_name') == 0 || $this->getConfig()->getCurrentStoreConfigValue('manufacturer/manufacturer_brand_list/manufacturer_display_logo_name') == 1 ) :
+                        ?>
+                    <div class="product-shop">
+                        <div class="f-fix">
+                            <h2 class="product-name">
+                                <a href="<?php echo trim($this->getManufacturerUrl($_manufacturer), '/') ?>">
+                                    <?php echo $_manufacturer->getBrandName() ?>
+                                </a>
+                            </h2>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <?php echo($iterator == count($_manufacturerCollection) + 1) ? '</li>' : '' ?>
+        <?php endforeach; ?>
+    </ol>
+
+</div>
+<?php
+/*if( $is_toolbar ){
+    echo $block->getToolbarHtml();   
+    echo $block->getPagerHtml();
+}*/
+?>
+<?php endif; ?>
+<script type="text/javascript">
+    require([
+        'jquery'
+        ],function(jQuery){
+            jQuery(window).on('load', function(event) {
+                var height = 0;
+                var productImage = '.manufacturer_image';
+
+                jQuery(productImage).each(function(index, el) {
+                    var elementHeight = jQuery(this).height();
+                    elementHeight = parseInt(elementHeight);
+                    if( parseInt(height) < elementHeight ){
+                        height = elementHeight;
+                    }
+                });
+
+                jQuery(productImage).each(function(index, el) {
+                    jQuery('.product-image-wrapper').height(height+'px');
+                });
+
+            });
+        });
+    </script>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="IntechSoft_CustomImport::customImport"
+             title="Custom Import"
+             module="IntechSoft_CustomImport"
+             sortOrder="51"
+             resource="IntechSoft_CustomImport::customImport"/>
+        <add id="IntechSoft_CustomImport::import"
+             title="Import"
+             module="IntechSoft_CustomImport" sortOrder="10"
+             parent="IntechSoft_CustomImport::customImport"
+             action="customimport/import/index" resource="IntechSoft_CustomImport::import" />
+    </menu>
+</config>

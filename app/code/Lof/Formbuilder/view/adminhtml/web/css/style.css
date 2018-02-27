@@ -1,0 +1,232 @@
+#edit_form select {
+    max-width: 200px;
+}
+
+.fb-bottom-add a {
+    color: #FFF
+}
+
+.js-add-cate-option {
+    color: #FFF !important;
+    padding: 3px 6px;
+}
+
+.js-remove-cate-option {
+    padding: 4px 7px;
+    background: red;
+    border: 0;
+    color: #FFF !important
+}
+
+.js-add-cate-option:hover {
+    background-color: #159d82 !important;
+    text-decoration: none !important
+}
+
+#formbuilder_tabs_design_section_content .form-list {
+    width: 100%;
+}
+
+#formbuilder_tabs_design_section_content * {
+    box-sizing: border-box;
+}
+
+#formbuilder_tabs_design_section_content .fb-main {
+    background-color: #fff;
+    border-radius: 5px;
+    min-height: 600px;
+}
+
+#formbuilder_tabs_design_section_content input[type=text] {
+    height: 26px;
+    margin-bottom: 3px;
+}
+
+#formbuilder_tabs_design_section_content select {
+    margin-bottom: 5px;
+}
+
+#wpo-widgetform li {
+    margin: 0px !important;
+}
+
+.fb-tabs li a, #wpo-widgetform a:hover {
+    text-decoration: none !important;
+}
+
+.hidden-block {
+    display: none !important;
+}
+
+.fb-main {
+    max-width: 1200px;
+}
+
+.new-label {
+    display: block !important;
+    text-indent: 99999px;
+    overflow: hidden;
+}
+
+.icon-new {
+    background: url(../images/label_new_red.png) no-repeat;
+    width: 48px !important;
+    height: 48px !important;
+}
+
+#message td {
+    padding: 10px;
+}
+
+.response-field-section_break {
+    border: 1px dashed #CCC;
+}
+
+.response-field-section_break .subtemplate-wrapper {
+    height: 100%;
+    margin: 0;
+}
+
+.response-field-section_break .field-section-break {
+    width: 97%;
+    height: 1px;
+    position: absolute;
+    top: 50%;
+    background: #e6e6e6;
+}
+
+.response-field-section_break .field-section-break span {
+    position: absolute;
+    top: -10px;
+    text-align: center;
+    left: 45%;
+    padding: 0 10px;
+    background: #FFF;
+}
+
+@charset "utf-8";
+/* CSS Document */
+#config_edit_form .entry-edit-head {
+    border-left: 12px solid #849BA3 !important;
+}
+
+#config_edit_form .entry-edit-head a {
+    padding: 8px !important;
+}
+
+.box, .entry-edit fieldset, .entry-edit .fieldset {
+    border-color: #849BA3
+}
+
+.system-fieldset-sub-head h4 {
+    font-size: 10px;
+    font-weight: bold;
+    color: #666;
+    border-left: #CCC solid 5px;
+    padding: 2px 12px;
+}
+
+.note {
+    color: #666
+}
+
+tr:hover label {
+    font-weight: bold;
+}
+
+.lof-description li {
+    margin: 9px 67px !important;
+    list-style-type: disc
+}
+
+.text-small {
+    font-size: 12px;
+    font-style: italic;
+}
+
+.field-row {
+    margin-bottom: 10px;
+}
+
+.fb-edit-field-wrapper .js-add-cate-option {
+    background-color: #2ecc71;
+    border: medium none;
+}
+
+.fb-edit-field-wrapper .js-remove-cate-option {
+    background-color: #e74c3c;
+    border: medium none;
+}
+
+.fb-edit-field-wrapper .js-add-cate-option, .fb-edit-field-wrapper .js-remove-cate-option {
+    padding: 3px 6px;
+}
+
+.rating {
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 7px;
+}
+
+.rating:before, .rating:after {
+    display: table;
+    content: "";
+}
+
+.rating:after {
+    clear: both;
+}
+
+.rating .star {
+    cursor: pointer;
+    display: block;
+    float: left;
+    color: #555555;
+    font-size: 20px;
+    z-index: 1;
+    position: relative;
+    width: 28px;
+    height: 24px;
+    vertical-align: middle;
+    line-height: 22px;
+}
+
+.rating .star:before, .rating .star:after {
+    position: absolute;
+    content: '\2605';
+    display: block;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    vertical-align: middle;
+}
+
+.rating.small .star {
+    height: 26px;
+    font-size: 24px;
+    line-height: 14px;
+}
+
+.rating .star.on {
+    color: gold;
+}
+
+.rating .score {
+    display: block;
+    font-size: .8rem;
+}
+
+.rating.small .score {
+    font-size: .6rem;
+}
+
+.img-google-map {
+    width: 562px;
+    height: 506px;
+    display: block;
+    background: url(../images/map.jpg) no-repeat;
+}
+
+.fb-response-fields label {
+    font-weight: normal;
+}

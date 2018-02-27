@@ -1,0 +1,44 @@
+<?php
+$form = $this->getCurrentForm();
+$design = $form->getData('design');
+if ($this->startsWith('[', $design)) {
+    $design = substr($design, 1, -1);
+}
+$fields = json_decode('[' . $form->getData('design') . ']', TRUE);
+if (isset($fields[0]['fields'])) {
+    $fields[0] = $fields[0]['fields'];
+    $fls = [];
+    foreach ($fields[0] as $k => $v) {
+        if (isset($v['field_type'])) {
+            $fls[] = $v;
+        }
+    }
+    $fields[0] = $fls;
+}
+
+$fields = $form->getFields();
+?>
+<div class='fb-main'></div>
+<script type="text/javascript">
+    <?php if($categories = $this->getModelCategories()): ?>
+    var data_model_categories = JSON.parse('<?php echo $categories; ?>');
+    <?php else: ?>
+    var data_model_categories = null;
+    <?php endif; ?>
+</script>
+
+<script>
+    require([
+        'Lof_Formbuilder/js/formbuilder'
+    ], function () {
+        fb = new Formbuilder({
+            selector: '.fb-main',
+            bootstrapData: <?php echo (isset($fields)) ? json_encode($fields) : '[]' ?>
+        });
+        fb.on('save', function (payload) {
+            jQuery('#form-design').html(payload);
+        })
+    });
+</script>
+<textarea id="form-design" name="design"
+          style="display: none"><?php echo (isset($fields)) ? json_encode($fields) : '' ?></textarea>

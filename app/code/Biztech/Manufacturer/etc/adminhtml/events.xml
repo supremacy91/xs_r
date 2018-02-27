@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../lib/internal/Magento/Framework/Event/etc/events.xsd">
+	<event name="admin_system_config_changed_section_manufacturer">
+		<observer name="manufacturer" instance="Biztech\Manufacturer\Observer\checkKey" />
+		<observer name="cleanCache" instance="Biztech\Manufacturer\Observer\cleanCache" />
+		<observer name="assignSourceModel" instance="Biztech\Manufacturer\Observer\assignSourceModel" />
+	</event>
+
+</config>

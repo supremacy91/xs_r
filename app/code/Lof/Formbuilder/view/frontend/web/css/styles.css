@@ -1,0 +1,257 @@
+.clear {
+    clear: both;
+}
+
+.formbuilder-popup {
+    display: none;
+}
+
+.field-section-break {
+    position: relative;
+}
+
+.field-section-break .sm-section-break {
+    position: relative;
+    text-align: center;
+}
+
+.field-section-break .sm-section-break:before {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 100%;
+    background: -moz-radial-gradient(center, ellipse cover, #fff 25%, #cecece 100%);
+    background: -webkit-gradient(radial, center center, 0, center center, 100%, color-stop(25%, #fff), color-stop(100%, #cecece));
+    background: -webkit-radial-gradient(center, ellipse cover, #fff 25%, #cecece 100%);
+    background: -ms-radial-gradient(center, ellipse cover, #fff 25%, #cecece 100%);
+    background: radial-gradient(ellipse at center, #fff 0%, #cecece 100%);
+    position: absolute;
+    top: 50%;
+    z-index: -1;
+}
+
+.field-section-break .sm-section-break span {
+    background: #FFF;
+    padding: 0 20px;
+    font-size: 1.5em;
+    padding: 0;
+    top: -15px;
+    margin: 0;
+}
+
+.ves-rating-play img {
+    display: inline;
+}
+
+.workflow_table th, .workflow_table td {
+    padding-bottom: 10px;
+    padding-right: 15px;
+}
+
+.calendar {
+    z-index: 99999
+}
+
+.response-field-draggable-helper {
+    border: 1px dashed #ddd;
+    background: #eee
+}
+
+.response-field-text input.rf-size-small {
+    width: 130px
+}
+
+.response-field-text input.rf-size-medium {
+    width: 300px
+}
+
+.response-field-text input.rf-size-large {
+    width: 100%
+}
+
+.response-field-paragraph textarea.rf-size-medium {
+    width: 400px;
+    min-height: 100px
+}
+
+.response-field-paragraph textarea.rf-size-large {
+    width: 100%;
+    min-height: 200px
+}
+
+.response-field-date .month, .response-field-date .day, .response-field-date .year {
+    width: 50px
+}
+
+.response-field-time .hours, .response-field-time .minutes, .response-field-time .seconds {
+    width: 50px
+}
+
+.response-field-checkboxes .fb-option, .response-field-radio .fb-option {
+    margin-bottom: 5px;
+    display: inline-block
+}
+
+.response-field-website input {
+    width: 200px
+}
+
+.formbuilder ul {
+    padding: 0;
+    margin: 0;
+}
+
+.formbuilder li {
+    list-style: none;
+}
+
+.formbuilder .required em {
+    color: #f00;
+}
+
+.response-field-time select {
+    width: auto
+}
+
+.formbuilder input,
+.formbuilder select {
+    width: auto;
+}
+
+.formbuilder .input-line {
+    clear: both;
+    margin-bottom: 10px;
+}
+
+.formbuilder .subtemplate-wrapper > label {
+    display: block;
+    padding-bottom: 3px;
+    margin-bottom: 10px;
+}
+
+.response-field-address .street input {
+    width: 100%
+}
+
+.response-field-address .city,
+.response-field-address .state {
+    display: inline-block
+}
+
+.response-field-address input {
+    width: 100%
+}
+
+.formbuilder .country select {
+    width: 100%
+}
+
+.response-field-google_map .form-group input {
+    width: 100%
+}
+
+.response-field-price .form-input input,
+.response-field-email .input-box input,
+.response-field-website .input-box input,
+.response-field-number .input-box input,
+.response-field-dropdown .input-box select,
+.response-field-date .input-box input,
+.response-field-text input,
+.response-field-paragraph textarea {
+    width: 100%;
+}
+
+.formbuilder-form .form-list .field {
+    margin-bottom: 10px;
+    min-height: 60px
+}
+
+.response-field-price .form-currency {
+    width: 2%;
+    float: left;
+}
+
+.response-field-price .form-input {
+    width: 98%;
+    float: left;
+    margin: 0;
+}
+
+.response-field-price .form-input1 {
+    padding: 0
+}
+
+.formbuilder label {
+    font-weight: normal;
+}
+
+@media only screen and (max-width: 599px) {
+    .workflow_table colgroup, .workflow_table thead {
+        display: none;
+    }
+
+    .workflow_table tr {
+        display: block;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        position: relative;
+        width: 100%;
+    }
+
+    .workflow_table tr:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+
+    .workflow_table tr:after:before, .workflow_table tr:after:after {
+        content: " ";
+        display: table;
+    }
+
+    .workflow_table tr:after:after {
+        clear: both;
+    }
+
+    .workflow_table tr:last-child {
+        margin-bottom: 0;
+    }
+
+    .workflow_table tfoot tr {
+        padding-bottom: 0;
+    }
+
+    .workflow_table td {
+        border: none;
+        display: block;
+    }
+
+    .workflow_table td[data-rwd-label] {
+        padding-left: 15px;
+        margin-bottom: 6px;
+    }
+
+    .workflow_table td[data-rwd-label] .price {
+        font-weight: normal;
+    }
+
+    .workflow_table td[data-rwd-label]:before {
+        content: attr(data-rwd-label) ":";
+        font-size: 12px;
+        font-family: "Roboto", sans-serif;
+        padding-right: 5px;
+        text-transform: uppercase;
+    }
+
+    .workflow_table td.product-cart-price {
+        text-align: left;
+    }
+}
+
+.subtemplate-wrapper > label {
+    font-weight: bold
+}
+
+.fancybox-inner {
+    overflow-x: hidden !important;
+}

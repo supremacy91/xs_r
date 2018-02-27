@@ -1,0 +1,90 @@
+"Save Page","Save Page"
+"Save and Continue Edit","Save and Continue Edit"
+"Delete Page","Delete Page"
+"Edit Page '%1'","Edit Page '%1'"
+"New Page","New Page"
+Conditions,Conditions
+"Conditions (don't add conditions if need show all products)","Conditions (don't add conditions if need show all products)"
+"Page Layout","Page Layout"
+Layout,Layout
+"Columns Count","Columns Count"
+"Count of columns in products grid","Count of columns in products grid"
+"Include Navigation","Include Navigation"
+Yes,Yes
+No,No
+Heading,Heading
+"Supported formats: jpg,jpeg,gif,png","Supported formats: jpg,jpeg,gif,png"
+Image,Image
+"Image Alt","Image Alt"
+"Top Description","Top Description"
+"Bottom Description","Bottom Description"
+"Top Static Block","Top Static Block"
+"Choose Static Block to show Above Products List","Choose Static Block to show Above Products List"
+"Bottom Static Block","Bottom Static Block"
+"Choose Static Block to show Below Products List","Choose Static Block to show Below Products List"
+"Layout Update XML","Layout Update XML"
+Design,Design
+"Page Information","Page Information"
+"Page Title","Page Title"
+"URL Key","URL Key"
+"Relative to Web Site Base URL","Relative to Web Site Base URL"
+"Store View","Store View"
+Status,Status
+"Page Status","Page Status"
+"Meta Data","Meta Data"
+Title,Title
+"Meta Title","Meta Title"
+Keywords,Keywords
+"Meta Keywords","Meta Keywords"
+Description,Description
+"Meta Description","Meta Description"
+"The page has been deleted.","The page has been deleted."
+"We can't find a page to delete.","We can't find a page to delete."
+"Landing Page","Landing Page"
+"Manage Pages","Manage Pages"
+"This page no longer exists.","This page no longer exists."
+"Edit Landing Page","Edit Landing Page"
+"New Landing Page","New Landing Page"
+"Landing Pages","Landing Pages"
+CMS,CMS
+"Manage Landing Pages","Manage Landing Pages"
+Pages,Pages
+"A total of %1 record(s) have been deleted.","A total of %1 record(s) have been deleted."
+"A total of %1 record(s) have been disabled.","A total of %1 record(s) have been disabled."
+"A total of %1 record(s) have been enabled.","A total of %1 record(s) have been enabled."
+"You saved this page.","You saved this page."
+"Something went wrong while saving the page.","Something went wrong while saving the page."
+"Landing Pages has not been imported completely. See the following list of errors:<br /> %1","Landing Pages has not been imported completely. See the following list of errors:<br /> %1"
+"Record with ""%1"" identifier exists already. Delete it before update. Row #%2","Record with ""%1"" identifier exists already. Delete it before update. Row #%2"
+"Please choose a condition to add.","Please choose a condition to add."
+"Conditions Combination","Conditions Combination"
+"Custom Fields","Custom Fields"
+"Is New","Is New"
+"Created (in days)","Created (in days)"
+"In Stock","In Stock"
+"Is on Sale","Is on Sale"
+Qty,Qty
+"Min Price","Min Price"
+"Max Price","Max Price"
+"Final Price","Final Price"
+"Product Attribute","Product Attribute"
+Price,Price
+"Attribute Set","Attribute Set"
+"Stores should be selected.","Stores should be selected."
+Preview,Preview
+Delete,Delete
+"Delete ${ $.$data.title }","Delete ${ $.$data.title }"
+"Are you sure you wan't to delete a ${ $.$data.title } record?","Are you sure you wan't to delete a ${ $.$data.title } record?"
+Edit,Edit
+Import,Import
+"Choose Target Store","Choose Target Store"
+"CSV File","CSV File"
+"Add New Page","Add New Page"
+CSV,CSV
+"Delete items","Delete items"
+"Are you sure you wan't to delete selected items?","Are you sure you wan't to delete selected items?"
+Disable,Disable
+Enable,Enable
+ID,ID
+Created,Created
+Modified,Modified

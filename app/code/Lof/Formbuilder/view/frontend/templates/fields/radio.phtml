@@ -1,0 +1,67 @@
+<?php
+$helper = $this->helper("Lof\Formbuilder\Helper\Fields");
+$form_data = $this->getData('form_data');
+$field = $this->getData('field_data');
+$field_type = $field['field_type'];
+$label = $field['label'];
+$options = $field['field_options'];
+$required = $field['required'];
+$cid = $field['cid'];
+$field_name = $helper->getFieldPrefix() . $cid;
+$available_fields = $helper->getAvailableFields();
+$html = '';
+$field_validate = isset($available_fields[$field_type]) ? $available_fields[$field_type] : '';
+$validates = $field_validate;
+$field_help = isset($options['description']) ? $options['description'] : '';
+if ($field_validate && is_array($field_validate)) {
+    $validates = implode(" ", $field_validate);
+}
+$include_other_option = isset($options['include_other_option']) ? $options['include_other_option'] : 0;
+?>
+<div class="subtemplate-wrapper">
+    <label for="<?php echo $field_name; ?>"
+           class="<?php echo (1 == $required) ? 'required' : ''; ?>"><?php echo $label; ?><?php echo (1 == $required) ? '<em>*</em>' : ''; ?></label>
+    <div class="input-box">
+        <div class="input-list">
+            <ul class="list-options">
+                <?php
+                if ($options['options']) {
+                    foreach ($options['options'] as $key => $val) {
+                        $item_label = $val['label'];
+                        $item_label_show = str_replace(array("{{", "}}"), array('<img src="{{', '}}" alt="img"/>'), $item_label);
+                        $item_checked = $val['checked'];
+                        if ($form_data && isset($form_data[$field_name]) && $form_data[$field_name] == $item_label) {
+                            $item_checked = true;
+                        }
+                        ?>
+                        <li>
+                            <input type="radio" name="<?php echo $field_name; ?>" id="<?php echo $field_name . $key; ?>"
+                                   title="<?php echo $field_name; ?>"
+                                   value="<?php echo $block->escapeQuote($item_label); ?>"
+                                   class="<?php echo (1 == $required) ? 'validate-one-required-by-name' : ''; ?>" <?php echo ($item_checked) ? 'checked="checked"' : ''; ?>/>
+                            <label for="<?php echo $field_name . $key; ?>"><?php echo $helper->filter($item_label_show); ?></label>
+                        </li>
+                    <?php } ?>
+
+                    <?php if ($include_other_option) {
+                        $key++; ?>
+                        <li>
+                            <input type="radio" name="<?php echo $field_name; ?>"
+                                   id="<?php echo $field_name . '_other'; ?>" title="<?php echo __('Other'); ?>"
+                                   value="other"
+                                   class="<?php echo (1 == $required) ? 'validate-one-required-by-name' : ''; ?>"/>
+                            <label for="<?php echo $field_name . '_other'; ?>"><?php echo __("Other"); ?></label> <input
+                                    name="<?php echo $field_name . '_other'; ?>" id=
+                            "<?php echo $field_name . $key; ?>" title="<?php echo __("Other"); ?>"
+                                    value="<?php echo ($form_data && isset($form_data[$field_name . $key])) ? $form_data[$field_name . $key] : ''; ?>"
+                                    class="input-text" type="text"/>
+                        </li>
+                    <?php } ?>
+                <?php } ?>
+            </ul>
+        </div>
+        <?php if ($field_help) { ?>
+            <span class="help-block"><?php echo $field_help; ?></span>
+        <?php } ?>
+    </div>
+</div>

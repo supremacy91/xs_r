@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_Formbuilder
+ * @copyright  Copyright (c) 2016 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <lofformbuilder>
+            <general_settings>
+                <enable>1</enable>
+                <route>formbuilder</route>
+                <dateformat>dd/mm/yy</dateformat>
+                <captcha_publickey>6LcS9x0TAAAAAI37rHG-tDVs4dXB1mA-Hh7WBZgq</captcha_publickey>
+                <captcha_privatekey>6LcS9x0TAAAAAMHqUvORdm8D-i3KScq_2UL-YiPv</captcha_privatekey>
+            </general_settings>
+            <email_settings>
+                <enable_testmode>0</enable_testmode>
+                <send_thanks_email>0</send_thanks_email>
+                <sender_email_identity>general</sender_email_identity>
+            </email_settings>
+            <field_templates>
+                <address>
+                    <![CDATA[{{if street}}{{var street}}<br />{{/if}}{{if city}}{{var city}},  {{/if}}{{if region}}{{var region}}, {{/if}}{{if postcode}}{{var postcode}}{{/if}}<br/>{{var country}}]]></address>
+            </field_templates>
+        </lofformbuilder>
+    </default>
+</config>

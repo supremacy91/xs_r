@@ -1,0 +1,59 @@
+<?php
+$_config = $this->getManufacturerConfig();
+$manu_img = $this->getManufacturerImage();
+$list_page_flag = $this->getListPageFlag();
+$imageType = $this->getImageType();
+
+switch ($imageType) {
+    case 'product_thumb':
+    $image_dimension = explode('x', $_config->getCurrentStoreConfigValue('manufacturer/manufacturer_product_view/product_view_dimension'));
+    break;
+    case 'small_thumb' :
+    $image_dimension     = explode('x', $_config->getCurrentStoreConfigValue('manufacturer/left_configuration/layered_navigation_dimension'));
+    break;
+
+    case 'large_thumb' : 
+    $image_dimension = explode('x', $_config->getCurrentStoreConfigValue('manufacturer/manufacturer_brand_list/manufacturer_list_dimension'));
+    break;
+    default:
+    $image_dimension = array(300,300);
+    break;
+}
+
+$manufacturer_name = $this->getManufacturerName();
+
+?>
+<span class="product-image-container" style="width:auto;">
+	<span class="product-image-wrapper" style="height:auto;">
+		<img src="<?php echo $manu_img ?>" alt="<?php echo $manufacturer_name; ?>" width="<?php echo $image_dimension[0]; ?>" height="<?php echo $image_dimension[1]; ?>" class="manufacturer_image" title="<?php echo $manufacturer_name; ?>" />
+	</span>
+</span>
+<?php if ($imageType !== 'product_thumb'){ ?>
+    <script type="text/javascript">
+        require([
+            'jquery'
+            ],function(jQuery){
+                optimizeImage = function(event){
+                    var height = 0;
+                    var productImage = '.manufacturer_image';
+
+                    jQuery(productImage).each(function(index, el) {
+                        var elementHeight = jQuery(this).height();
+                        elementHeight = parseInt(elementHeight);
+                        if( parseInt(height) < elementHeight ){
+                            height = elementHeight;
+                        }
+                    });
+
+                    jQuery(productImage).each(function(index, el) {
+                        jQuery('.product-image-wrapper').height(height+'px');
+                    });
+                };
+
+                window.optimizeImage = optimizeImage;
+                jQuery(window).on('load', optimizeImage(event));
+
+                
+            });
+    </script>
+    <?php } ?>

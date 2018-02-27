@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Biztech_Manufacturer::css/owl.carousel.css" media="all" order="999"/>
+        <css src="Biztech_Manufacturer::css/owl.theme.css" media="all" order="999"/>
+        <css src="Biztech_Manufacturer::css/owl.transitions.css" media="all" order="999"/>
+        <css src="Biztech_Manufacturer::css/manufacturer.css" media="all" order="999"/>
+    </head>
+    <body>
+        <referenceBlock name="header.links">
+            <block class="Magento\Framework\View\Element\Html\Link" name="manufacturer.link" before="-" ifconfig="manufacturer/general/manufacturer_display_top_links">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="false">All Manufacturers</argument>
+                    <argument name="path" xsi:type="string" translate="false">manufacturer</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+
+    	<referenceContainer name="header-wrapper">
+            <block class="Biztech\Manufacturer\Block\Manufacturer\Form" name="top.search" as="topSearch" template="Biztech_Manufacturer::manufacturer/search/form.mini.phtml" />
+        </referenceContainer>
+		<!-- <referenceContainer name="sidebar.main">
+			<block class="Biztech\Manufacturer\Block\Manufacturer\Index" name="manufacturer_sidebar" as="manufacturer.sidebar" template="Biztech_Manufacturer::manufacturer/manufacturer_sidebar.phtml" />
+		</referenceContainer>
+		<referenceContainer name="sidebar.additional">
+            <block class="Biztech\Manufacturer\Block\Manufacturer\Index" name="manufacturer_sidebar" as="manufacturer.sidebar" template="Biztech_Manufacturer::manufacturer/manufacturer_sidebar.phtml"/>
+        </referenceContainer> -->
+	</body>
+</page>

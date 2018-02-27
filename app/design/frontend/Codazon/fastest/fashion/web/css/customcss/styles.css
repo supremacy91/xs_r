@@ -1,0 +1,27 @@
+/** 23-08-2017 LS: Added custom CSS for changing different items **/
+.manufacturer-item{
+	float: none !important;
+	display: block !important;
+	width: 100% !important;
+}
+
+.manufacturer-item a{
+	float: none !important;
+	display: block !important;
+	width: 100% !important;
+}
+
+.input-box.col-sm-12{
+	width: 100%;
+}
+
+.swatch-attribute.size .swatch-option, .swatch-attribute.manufacturer .swatch-option{
+	border-color: #000 !important;
+}
+
+.catalog-product-view .old-price .price-label{ display: none; }
+
+@media only screen and (min-width: 1024px){
+.product.details.product-item-details{ min-height: 250px !important; }
+.product.actions.product-item-actions{ position: absolute; bottom: 0; left: 20px; }
+}

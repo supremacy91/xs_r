@@ -1,0 +1,73 @@
+<?php
+
+if( $block->getStoreConfig()->getCurrentStoreConfigValue('manufacturer/search_settings/show_manufacturer_on_top_search') ) :
+	$helper = $this->helper('Magento\CatalogSearch\Helper\Data');
+?>
+<div class="block block-search">
+	<div class="block block-title"><strong><?php /* @escapeNotVerified */ echo __('Search'); ?></strong></div>
+	<div class="block block-content">
+		<form class="form search advanced" id="form-validate" action="<?php /* @escapeNotVerified */ echo $this->getUrl('catalogsearch/advanced/result') ?>" method="get">
+			<div class="field manufacturer">
+				<label class="label" for="manufacturer" data-role="minisearch-label">
+					<span><?php /* @escapeNotVerified */ echo __('Manufacturer'); ?></span>
+				</label>
+				<?php 
+					$options = $this->getManufacturer();
+					$m = $this->getRequest()->getParam('manufacturer');
+				?>
+
+				<select id="manufacturer" name="manufacturer">
+					<option value=""><?php echo __('Please Select');?></option>
+					<?php 
+						foreach ($options as $option) : ?>
+							<option value="<?php echo $option['value']?>" <?php echo ($m == $option['value']) ? 'selected' : 
+							'' ?> ><?php echo $option['label']?></option>
+						<?php endforeach; ?>
+				</select>
+			</div>
+			<div class="field search">
+				<?php 
+					$name = $this->getRequest()->getParam('name');
+				?>
+				<label class="label" for="search" data-role="minisearch-label">
+					<span><?php /* @escapeNotVerified */ echo __('Search'); ?></span>
+				</label>
+				<div class="control">
+					<input id="search"
+					data-mage-init='{"quickSearch":{
+					"formSelector":"#form-validate",
+					"url":"<?php /* @escapeNotVerified */ echo $block->getUrl('search/ajax/suggest'); ?>",
+					"destinationSelector":"#search_autocomplete"}
+				}'
+				type="text"
+				<?php /*name="<?php /* @escapeNotVerified * / echo $helper->getQueryParamName() ?>"
+					 value="<?php /* @escapeNotVerified * / echo $helper->getEscapedQueryText() ?>" */?>
+				name="<?php /* @escapeNotVerified */ echo "name"//$helper->getQueryParamName() ?>"
+				value="<?php echo isset($name) ? $name : '' ?>"
+				placeholder="<?php /* @escapeNotVerified */ echo __('Search entire store here...'); ?>"
+				class="input-text"
+				maxlength="<?php /* @escapeNotVerified */ echo $helper->getMaxQueryLength();?>"
+				role="combobox"
+				aria-haspopup="false"
+				aria-autocomplete="both"
+				autocomplete="off"/>
+				<div id="search_autocomplete" class="search-autocomplete"></div>
+				<?php echo $block->getChildHtml() ?>
+			</div>
+
+		</div>
+		<div class="actions">
+			<button type="submit"
+			title="<?php echo $block->escapeHtml(__('Search')) ?>"
+			class="action search">
+			<span><?php /* @escapeNotVerified */ echo __('Search'); ?></span>
+		</button>
+	</div>
+</form>
+</div>
+</div>
+<?php
+else :
+	include ($block->getTemplateFile('Magento_Search::form.mini.phtml'));
+endif;
+?>

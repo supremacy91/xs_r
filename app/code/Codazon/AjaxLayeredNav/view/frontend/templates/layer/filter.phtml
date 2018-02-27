@@ -1,0 +1,205 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Template for filter items block
+ *
+ * @var $block \Magento\LayeredNavigation\Block\Navigation\FilterRenderer
+ */
+?>
+<?php
+
+
+?>
+<?php if($filter instanceof Magento\CatalogSearch\Model\Layer\Filter\Price ):?>
+<?php $range =  $this->getPriceRange($filter);?>
+<?php $url = $this->getFilterUrl($filter);?>
+<?php
+    $symbol = $this->getStore()->getCurrentCurrency()->getCurrencySymbol();
+?>
+<style type="text/css">
+.filter-options-content a{-webkit-transition:none !important;}
+.ui-slider-handle {-ms-touch-action: none; touch-action: none;}
+</style>
+<script>
+var price_url = "<?=$url;?>";
+require([
+    'jquery',
+    "Codazon_AjaxLayeredNav/js/nouislider.min",
+    'domReady!'
+], function($,noUiSlider){
+    $(document).delegate('.ui-page', 'touchmove', false);
+    function setParam(data, name, value){
+        var tmp = '';
+        var flag = false;
+        var result = '';
+        if(data){
+            tmp = data.split('&');
+        }
+        if(tmp.length > 0){
+            for(var i = 0; i < tmp.length; i++){
+                var tmp2 = tmp[i].split('=');
+                if(tmp2.length > 1 && tmp2[0] == name)
+                {
+                    tmp2[1] = value;
+                    flag = true;
+                }
+                if(tmp2.length > 1){
+                    result += ('&' + tmp2[0] + '=' + tmp2[1]);
+                }
+            }
+        }
+        if(!flag){
+            result += ('&' + name + '=' + value);
+        }
+        return result;
+    }
+    
+    function getHref(from,to){
+        uriRequest = setParam(uriRequest, 'price', from+'-'+to);
+        var href = window.location.href + "?" + uriRequest.replace(catparam,'');
+        console.log(href);
+        $('#price-fake').attr('href',href);
+    }
+    var keypressSlider = document.getElementById('price-slider');
+    var input0 = document.getElementById('price-from');
+    var input1 = document.getElementById('price-to');
+    var inputs = [input0, input1];
+
+    noUiSlider.create(keypressSlider, {
+        start: [<?php echo $range['min'] ?>, <?php echo $range['max']?>],
+        connect: true,
+        tooltips: false,
+        range: {
+            'min': <?php echo $range['min'] ?>,
+            'max': <?php echo $range['max'] ?>
+        }
+    });
+
+    keypressSlider.noUiSlider.on('update', function( values, handle ) {
+        if(inputs[handle]){
+            inputs[handle].value = values[handle];
+        }
+    });
+
+    function setSliderHandle(i, value) {
+        var r = [null,null];
+        r[i] = value;
+        keypressSlider.noUiSlider.set(r);
+    }
+
+    // Listen to keydown events on the input field.
+    inputs.forEach(function(input, handle) {
+
+        input.addEventListener('change', function(){
+            setSliderHandle(handle, this.value);
+        });
+
+        input.addEventListener('keydown', function( e ) {
+
+            var values = keypressSlider.noUiSlider.get();
+            var value = Number(values[handle]);
+
+            // [[handle0_down, handle0_up], [handle1_down, handle1_up]]
+            var steps = keypressSlider.noUiSlider.steps();
+
+            // [down, up]
+            var step = steps[handle];
+
+            var position;
+
+            // 13 is enter,
+            // 38 is key up,
+            // 40 is key down.
+            switch ( e.which ) {
+
+                case 13:
+                    setSliderHandle(handle, this.value);
+                    break;
+
+                case 38:
+
+                    // Get step to go increase slider value (up)
+                    position = step[1];
+
+                    // false = no step is set
+                    if ( position === false ) {
+                        position = 1;
+                    }
+
+                    // null = edge of slider
+                    if ( position !== null ) {
+                        setSliderHandle(handle, value + position);
+                    }
+
+                    break;
+
+                case 40:
+
+                    position = step[0];
+
+                    if ( position === false ) {
+                        position = 1;
+                    }
+
+                    if ( position !== null ) {
+                        setSliderHandle(handle, value - position);
+                    }
+
+                    break;
+            }
+        });
+    });
+
+    $("#apply-price").click(function(){
+        getHref($("#price-from").val(), $("#price-to").val());
+        $('#price-fake').click();
+    });
+});
+</script>
+<?php 
+?>      
+<div class=“price-control-wrapper” style="margin-bottom:45px;">
+	<div id="price-slider"></div>
+	<div class=“price-form” style="float:left"><?php echo $this->helper('Magento\Framework\Pricing\Helper\Data')->currency($range['min']) ?></div>
+	<div class=“price-to” style="float:right"><?php echo $this->helper('Magento\Framework\Pricing\Helper\Data')->currency($range['max']) ?></div>
+</div>
+
+<div class="price-control">
+    <label><?php echo $symbol ?></label><input type="text" id="price-from" style="width:40px"/>
+    <span> ~ </span>
+    <label><?php echo $symbol ?></label><input type="text" id="price-to" style="width:40px"/>
+    <button class="button" id="apply-price" style="float:right"><span><span><?php echo __("Go") ?></span></span></button>
+</div>
+
+<a href="#" id="price-fake" style="display:none"></a>
+<?php else:?>
+<ol class="items">
+    <?php foreach ($filterItems as $filterItem): ?>
+        <li class="my item">
+            <?php if ($filterItem->getCount() > 0): ?>
+                <a href="<?php echo $block->escapeUrl($filterItem->getUrl()) ?>">
+                    <?php /* @escapeNotVerified */ echo $filterItem->getLabel() ?>
+                    <?php if ($this->helper('\Magento\Catalog\Helper\Data')->shouldDisplayProductCountOnLayer()): ?>
+                        <span class="count"><?php /* @escapeNotVerified */ echo $filterItem->getCount()?><span class="filter-count-label">
+                            <?php if ($filterItem->getCount() == 1):?> <?php /* @escapeNotVerified */ echo __('item')?><?php else:?> <?php /* @escapeNotVerified */ echo __('items') ?><?php endif;?></span></span>
+                    <?php endif; ?>
+                </a>
+            <?php else:?>
+                <?php /* @escapeNotVerified */ echo $filterItem->getLabel() ?>
+                <?php if ($this->helper('\Magento\Catalog\Helper\Data')->shouldDisplayProductCountOnLayer()): ?>
+                    <span class="count"><?php /* @escapeNotVerified */ echo $filterItem->getCount()?><span class="filter-count-label">
+                        <?php if ($filterItem->getCount() == 1):?><?php /* @escapeNotVerified */ echo __('item')?><?php else:?><?php /* @escapeNotVerified */ echo __('items') ?><?php endif;?></span></span>
+                <?php endif; ?>
+            <?php endif; ?>
+        </li>
+    <?php endforeach ?>
+</ol>
+<?php endif;?>

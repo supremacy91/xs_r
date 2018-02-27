@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+	<head>
+		<title>Dames-Heren merken</title>
+	</head>
+	<body>
+
+		<attribute name="class" value="page-products"/>
+		<referenceContainer name="content">
+			<block class="Biztech\Manufacturer\Block\Dames\Index" name="kinder" as="kinder" template="manufacturer/dames_heren_merken.phtml" >
+				<container name="category.product.list.additional" as="additional" />
+				<block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
+					<block class="Magento\Framework\View\Element\Template" as="default"/>
+				</block>
+				<block class="Magento\Catalog\Block\Product\ProductList\Toolbar" name="product_list_toolbar" template="Magento_Catalog::product/list/toolbar.phtml">
+
+					<block class="Magento\Theme\Block\Html\Pager" name="product_list_toolbar_pager"/>
+			
+						<action method="setDefaultGridPerPage">
+							<argument name="limit" xsi:type="string">5</argument>
+						</action>
+					
+				</block>
+				<action method="setToolbarBlockName">
+					<argument name="name" xsi:type="string">product_list_toolbar</argument>
+				</action>
+			</block>
+		</referenceContainer>
+		<referenceContainer name="left">
+			<block class="Biztech\Manufacturer\Block\Manufacturer\List" name="manufacturer_sidebar" template="manufacturer/manufacturer_list.phtml" />
+		</referenceContainer>
+	</body>
+</page>

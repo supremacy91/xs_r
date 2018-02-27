@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<body>
+		<attribute name="class" value="page-products"/>
+		<referenceContainer name="product.info.main">
+			<block class="Biztech\Manufacturer\Block\Product\View"
+				name="product.view.manufacturer"
+				template="Biztech_Manufacturer::product/view/manufacturer.phtml"
+				after="product.info.overview">
+			</block>
+		</referenceContainer>
+		<referenceContainer name="content.aside">
+			<block class="Biztech\Manufacturer\Block\Product\RelatedManufacturer"
+				name="product.related.manufacturer"
+				template="Biztech_Manufacturer::manufacturer/related_product_manufacturer.phtml"
+				before="catalog.product.related">
+			</block>
+		</referenceContainer>
+	</body>
+</page>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+    /**
+     * @author      Dima S
+     * @copyright
+     * @version     1.0.1
+     */
+    -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="catalog_product_save_before">
+        <observer name="counting_additional_attributes" instance="IntechSoft\AdditionalAttributes\Observer\AfterProductSaveObserver" />
+    </event>
+</config>
